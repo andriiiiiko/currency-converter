@@ -280,11 +280,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
         for (String buttonName : buttons.keySet()) {
-            String buutonValue = buttons.get(buttonName);
+            String buttonValue = buttons.get(buttonName);
 
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(new String(buttonName.getBytes()));
-            button.setCallbackData(buutonValue);
+            button.setCallbackData(buttonValue);
 
             keyboard.add(List.of(button));
         }
