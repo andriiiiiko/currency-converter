@@ -16,6 +16,6 @@ public class Log {
     public static void Info(String name){
         System.out.println("\nLOG.INFO:" +
                 new Timestamp(System.currentTimeMillis()) +
-                "\nReply to username: " + name + "\n");
+                "\nReply to using: " + name + "\n");
     }
 }
