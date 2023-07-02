@@ -92,7 +92,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private void infoMessage(long chatId, String str) {
         String answer = EmojiParser.parseToUnicode("Курс в Приват банк: USD/UAH\n" +
                 "Купівлля: 38.55\n" +
-                "Продажа: 39.60");
+                "Продаж: 39.60");
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
