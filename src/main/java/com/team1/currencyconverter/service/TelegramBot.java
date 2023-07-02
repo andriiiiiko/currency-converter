@@ -8,9 +8,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.*;
@@ -46,10 +44,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (messageText.equals("/start")) {
                 startCommandStart(chatId, update.getMessage().getChat().getUserName());
             }
-
-            if (messageText.equals("/test")) {
-                test(chatId);
-            }
         }
 
         if (update.hasCallbackQuery()) {
@@ -63,17 +57,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             } else if (callbackData.equals("NUMBER")) {
                 numberSetiings(chatId, update.getCallbackQuery().getData());
             } else if (callbackData.equals("CURRENCIES")) {
-                currencySetiings(chatId, update.getCallbackQuery().getData());
+                currencySettings(chatId, update.getCallbackQuery().getData());
             } else if (callbackData.equals("BANK")) {
                 bankSetiings(chatId, update.getCallbackQuery().getData());
             } else if (callbackData.equals("TIME")) {
                 timeSetiings(chatId, update.getCallbackQuery().getData());
             }
         }
-
-    }
-
-    private void update() {
 
     }
 
@@ -100,7 +90,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void infoMessage(long chatId, String str) {
-        String answer = EmojiParser.parseToUnicode("Курс в {Приват банк}: USD/UAH\n" +
+        String answer = EmojiParser.parseToUnicode("Курс в Приват банк: USD/UAH\n" +
                 "Купівлля: 38.55\n" +
                 "Продажа: 39.60");
 
@@ -174,7 +164,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         executeMessage(message);
     }
 
-    private void currencySetiings(long chatId, String str) {
+    private void currencySettings(long chatId, String str) {
         String answer = EmojiParser.parseToUnicode("Виберіть валюту");
 
         SendMessage message = new SendMessage();
@@ -258,31 +248,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 buttons.get(9), "T_18"
         ));
 
-
         executeMessage(message);
-    }
-
-    private ReplyKeyboardMarkup test(long chatId) {
-        String answer = EmojiParser.parseToUnicode("Виберіть банк");
-
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
-
-        Log.Info(" ");
-
-        KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRow.add("❗️Потрібна допомога");
-
-        return ReplyKeyboardMarkup.builder()
-                .keyboard(List.of(keyboardRow))
-                .selective(true)
-                .resizeKeyboard(true)
-                .oneTimeKeyboard(false)
-                .build();
-
-
-        //executeMessage(message);
     }
 
     private void sendMessage(long chatId, String textToSend) {
@@ -319,5 +285,4 @@ public class TelegramBot extends TelegramLongPollingBot {
         markup.setKeyboard(keyboard);
         message.setReplyMarkup(markup);
     }
-
 }
