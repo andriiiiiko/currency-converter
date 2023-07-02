@@ -2,7 +2,6 @@ package com.team1.currencyconverter.config;
 
 import com.team1.currencyconverter.service.TelegramBot;
 import com.team1.currencyconverter.service.utilits.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -13,8 +12,12 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Component
 public class BotInitializer {
 
-    @Autowired
+    final
     TelegramBot bot;
+
+    public BotInitializer(TelegramBot bot) {
+        this.bot = bot;
+    }
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {
