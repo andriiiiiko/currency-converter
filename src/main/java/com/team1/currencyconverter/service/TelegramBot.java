@@ -50,18 +50,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             String callbackData = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
 
-            if (callbackData.equals("INFO_BUTTON")) {
-                infoMessage(chatId, update.getCallbackQuery().getData());
-            } else if (callbackData.equals("SETTINGS BUTTON")) {
-                settingsMessage(chatId, update.getCallbackQuery().getData());
-            } else if (callbackData.equals("NUMBER")) {
-                numberSetiings(chatId, update.getCallbackQuery().getData());
-            } else if (callbackData.equals("CURRENCIES")) {
-                currencySettings(chatId, update.getCallbackQuery().getData());
-            } else if (callbackData.equals("BANK")) {
-                bankSetiings(chatId, update.getCallbackQuery().getData());
-            } else if (callbackData.equals("TIME")) {
-                timeSetiings(chatId, update.getCallbackQuery().getData());
+            switch (callbackData) {
+                case "INFO_BUTTON" -> infoMessage(chatId, update.getCallbackQuery().getData());
+                case "SETTINGS BUTTON" -> settingsMessage(chatId, update.getCallbackQuery().getData());
+                case "NUMBER" -> numberSetiings(chatId, update.getCallbackQuery().getData());
+                case "CURRENCIES" -> currencySettings(chatId, update.getCallbackQuery().getData());
+                case "BANK" -> bankSetiings(chatId, update.getCallbackQuery().getData());
+                case "TIME" -> timeSetiings(chatId, update.getCallbackQuery().getData());
             }
         }
 
