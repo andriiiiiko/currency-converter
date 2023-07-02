@@ -16,9 +16,7 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private Map<Long,  Integer> levels = new HashMap<>();
     final BotConfig config;
-
 
     public TelegramBot(BotConfig config) {
         this.config = config;
@@ -84,9 +82,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void infoMessage(long chatId, String str) {
-        String answer = EmojiParser.parseToUnicode("Курс в Приват банк: USD/UAH\n" +
-                "Купівлля: 38.55\n" +
-                "Продаж: 39.60");
+        String answer = EmojiParser.parseToUnicode("""
+                Курс в Приват банк: USD/UAH
+                Купівлля: 38.55
+                Продаж: 39.60""");
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -98,15 +97,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
         InlineKeyboardButton infoButton = new InlineKeyboardButton();
-        infoButton.setText(new String("Отримати інфо"));
+        infoButton.setText("Отримати інфо");
         infoButton.setCallbackData("INFO_BUTTON");
 
         InlineKeyboardButton settingButton = new InlineKeyboardButton();
-        settingButton.setText(new String("Налаштування"));
+        settingButton.setText("Налаштування");
         settingButton.setCallbackData("SETTINGS BUTTON");
 
-        keyboard.add(Arrays.asList(infoButton));
-        keyboard.add(Arrays.asList(settingButton));
+        keyboard.add(List.of(infoButton));
+        keyboard.add(List.of(settingButton));
 
 
         markup.setKeyboard(keyboard);
@@ -171,8 +170,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(answer);
-
-        InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
 
         InlineKeyboardMarkup markupInLine = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
@@ -277,7 +274,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    public void attachButtons(SendMessage message, Map<String, String> buttons){
+    public void attachButtons(SendMessage message, Map<String, String> buttons) {
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
 
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -289,7 +286,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             button.setText(new String(buttonName.getBytes()));
             button.setCallbackData(buutonValue);
 
-            keyboard.add(Arrays.asList(button));
+            keyboard.add(List.of(button));
         }
 
         markup.setKeyboard(keyboard);
