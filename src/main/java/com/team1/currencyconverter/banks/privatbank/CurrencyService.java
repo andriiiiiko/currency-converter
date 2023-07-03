@@ -13,16 +13,19 @@ import org.apache.http.util.EntityUtils;
 
 public class CurrencyService {
     private static final String BASE_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11";
-    private static final Gson gson = new Gson();
-    private static final HttpClient httpClient = HttpClients.createDefault();
+    private static final Gson GSON = new Gson();
+    private static final HttpClient HTTP_CLIENT = HttpClients.createDefault();
+
     public static List<CurrencyModelPrivatBank> getCurrencyRate() {
         HttpGet request = new HttpGet(BASE_URL);
+
         try {
-            HttpResponse response = httpClient.execute(request);
+            HttpResponse response = HTTP_CLIENT.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
+
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                CurrencyModelPrivatBank[] tasks = gson.fromJson(responseBody, CurrencyModelPrivatBank[].class);
+                CurrencyModelPrivatBank[] tasks = GSON.fromJson(responseBody, CurrencyModelPrivatBank[].class);
                 return Arrays.asList(tasks);
             }
         } catch (IOException e) {
@@ -34,6 +37,7 @@ public class CurrencyService {
 
     public static String getCurrencyInformation(String currency) {
         List<CurrencyModelPrivatBank> currencyList = getCurrencyRate();
+
         if (currencyList != null) {
             for (CurrencyModelPrivatBank currencyModelPrivatbank : currencyList) {
                 if (currencyModelPrivatbank.getCcy().equals(currency)) {
@@ -43,6 +47,7 @@ public class CurrencyService {
                 }
             }
         }
+
         return null;
     }
 }
