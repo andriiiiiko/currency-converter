@@ -58,8 +58,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             String username = update.getMessage().getChat().getUserName();
             long chatId = update.getMessage().getChatId();
 
-            Log.Info(username, messageText);
-
             switch (messageText) {
                 case "/start" -> startCommandStart(chatId);
                 case "/info" -> infoMessage(chatId);
@@ -69,6 +67,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/time" -> timeSettings(chatId);
                 case "/number" -> numberSettings(chatId);
             }
+
+            Log.Info(username, messageText);
         }
 
         if (update.hasCallbackQuery()) {
@@ -164,7 +164,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void numberSettings(long chatId) {
-        String answer = EmojiParser.parseToUnicode("Виберіть кулькість знаків після коми");
+        String answer = EmojiParser.parseToUnicode("Виберіть кількість знаків після коми");
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -177,7 +177,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         for (String nameButtons : nameButton) {
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(nameButtons);
-            button.setCallbackData(nameButtons);
+            button.setCallbackData("B_" + nameButtons);
             keyboard.add(List.of(button));
         }
 
@@ -249,7 +249,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         for (String timeOption : timeOptions) {
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(timeOption);
-            button.setCallbackData("T_" + timeOption.replace(":", ""));
+            button.setCallbackData("B_" + timeOption.replace(":", ""));
             keyboard.add(List.of(button));
         }
 
