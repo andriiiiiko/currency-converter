@@ -1,4 +1,4 @@
-package com.team1.currencyconverter;
+package com.godeveloper.currencyconverter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
