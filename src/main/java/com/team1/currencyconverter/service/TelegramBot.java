@@ -5,8 +5,11 @@ import com.team1.currencyconverter.service.utilits.Log;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -20,6 +23,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot(BotConfig config) {
         this.config = config;
+
+        List <BotCommand> botCommandList = new ArrayList<>();
+        botCommandList.add(new BotCommand("/start", "Запустити бота"));
+        botCommandList.add(new BotCommand("/info", "отримати інфо"));
+        botCommandList.add(new BotCommand("/setting", "Налаштуавння"));
+        botCommandList.add(new BotCommand("/bank", "Налаштуавння банку"));
+        botCommandList.add(new BotCommand("/currency", "Налаштуавння валюти"));
+        botCommandList.add(new BotCommand("/time", "Налаштуавння сповіщення"));
+        botCommandList.add(new BotCommand("/number", "Налаштуавння знаків"));
+
+        try {
+            this.execute(new SetMyCommands(botCommandList, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
+            Log.Error(e);
+        }
     }
 
     @Override
@@ -42,8 +60,14 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             Log.Info(username, messageText);
 
-            if (messageText.equals("/start")) {
-                startCommandStart(chatId);
+            switch (messageText) {
+                case "/start" -> startCommandStart(chatId);
+                case "/info" -> infoMessage(chatId);
+                case "/setting" -> settingsMessage(chatId);
+                case "/bank" -> bankSettings(chatId);
+                case "/currency" -> currencySettings(chatId);
+                case "/time" -> timeSettings(chatId);
+                case "/number" -> numberSettings(chatId);
             }
         }
 
