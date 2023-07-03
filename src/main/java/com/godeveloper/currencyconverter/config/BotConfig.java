@@ -1,4 +1,4 @@
-package com.team1.currencyconverter.config;
+package com.godeveloper.currencyconverter.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

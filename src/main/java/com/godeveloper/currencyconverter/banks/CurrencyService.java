@@ -1,4 +1,4 @@
-package com.team1.currencyconverter.banks.privatbank;
+package com.godeveloper.currencyconverter.banks;
 
 import java.io.IOException;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.team1.currencyconverter.service.utilits;
+package com.godeveloper.currencyconverter.service.utilits;
 
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 

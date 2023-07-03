@@ -1,7 +1,7 @@
-package com.team1.currencyconverter.service;
+package com.godeveloper.currencyconverter.service;
 
-import com.team1.currencyconverter.config.BotConfig;
-import com.team1.currencyconverter.service.utilits.Log;
+import com.godeveloper.currencyconverter.config.BotConfig;
+import com.godeveloper.currencyconverter.service.utilits.Log;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

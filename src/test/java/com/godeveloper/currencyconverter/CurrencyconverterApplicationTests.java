@@ -1,4 +1,4 @@
-package com.team1.currencyconverter;
+package com.godeveloper.currencyconverter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

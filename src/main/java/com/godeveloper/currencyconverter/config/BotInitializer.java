@@ -1,7 +1,7 @@
-package com.team1.currencyconverter.config;
+package com.godeveloper.currencyconverter.config;
 
-import com.team1.currencyconverter.service.TelegramBot;
-import com.team1.currencyconverter.service.utilits.Log;
+import com.godeveloper.currencyconverter.service.TelegramBot;
+import com.godeveloper.currencyconverter.service.utilits.Log;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

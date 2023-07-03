@@ -1,4 +1,4 @@
-package com.team1.currencyconverter.banks.privatbank;
+package com.godeveloper.currencyconverter.banks.privatbank;
 
 public class CurrencyModelPrivatBank {
     private String ccy;
