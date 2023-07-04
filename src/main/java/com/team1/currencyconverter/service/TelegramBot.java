@@ -1,5 +1,4 @@
 package com.team1.currencyconverter.service;
-
 import com.team1.currencyconverter.config.BotConfig;
 import com.team1.currencyconverter.service.utilits.Log;
 import com.vdurmont.emoji.EmojiParser;
@@ -13,13 +12,13 @@ import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScope
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
 import java.util.*;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    final BotConfig config;
+    private final SendMessage sendMessage = new SendMessage();
+    private final BotConfig config;
 
     public TelegramBot(BotConfig config) {
         this.config = config;
@@ -67,7 +66,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/time" -> timeSettings(chatId);
                 case "/number" -> numberSettings(chatId);
             }
-
             Log.Info(username, messageText);
         }
 
@@ -90,10 +88,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void startCommandStart(long chatId) {
         String answer = EmojiParser.parseToUnicode("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют" + " :currency_exchange: !");
-
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -107,9 +103,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void infoMessage(long chatId) {
@@ -118,9 +114,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 Купівлля: 38.55
                 Продаж: 39.60""");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -134,17 +129,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void settingsMessage(long chatId) {
         String answer = EmojiParser.parseToUnicode("Налаштування");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -158,17 +152,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void numberSettings(long chatId) {
         String answer = EmojiParser.parseToUnicode("Виберіть кількість знаків після коми");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -182,17 +175,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void currencySettings(long chatId) {
         String answer = EmojiParser.parseToUnicode("Виберіть валюту");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -206,17 +198,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void bankSettings(long chatId) {
         String answer = EmojiParser.parseToUnicode("Виберіть банк");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -230,17 +221,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void timeSettings(long chatId) {
         String answer = EmojiParser.parseToUnicode("Виберіть час сповіщення");
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(answer);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
@@ -259,9 +249,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         keyboard.add(List.of(offButton));
 
         markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(markup);
 
-        executeMessage(message);
+        executeMessage(sendMessage);
     }
 
     private void executeMessage(SendMessage message) {
