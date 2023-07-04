@@ -12,8 +12,15 @@ public class Log {
 
     }
 
-    public static void Info(String name) {
+    public static void Info(String name, String text) {
         System.out.println("\nLOG.INFO: " + new Timestamp(System.currentTimeMillis()) +
-                "\nReply to using: " + name + "\n");
+                "\nReply to username: " + name + "\n" +
+                "using text: " + text);
+    }
+
+    public static void button(String name) {
+        System.out.println("\nLOG.INFO: " + new Timestamp(System.currentTimeMillis()) +
+                "\nReply to using button: " + name + "\n");
     }
 }
+
