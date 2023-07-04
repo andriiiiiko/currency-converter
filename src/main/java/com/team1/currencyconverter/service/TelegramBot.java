@@ -1,6 +1,7 @@
 package com.team1.currencyconverter.service;
 import com.team1.currencyconverter.config.BotConfig;
 import com.team1.currencyconverter.service.utilits.Log;
+import com.team1.currencyconverter.service.utilits.commands.BotCommandListMenu;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -17,20 +18,14 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final SendMessage sendMessage = new SendMessage();
+    private final SendMessage sendMessage;
     private final BotConfig config;
 
     public TelegramBot(BotConfig config) {
         this.config = config;
+        this.sendMessage = new SendMessage();
 
-        List <BotCommand> botCommandList = new ArrayList<>();
-        botCommandList.add(new BotCommand("/start", "Запустити бота"));
-        botCommandList.add(new BotCommand("/info", "отримати інфо"));
-        botCommandList.add(new BotCommand("/setting", "Налаштуавння"));
-        botCommandList.add(new BotCommand("/bank", "Налаштуавння банку"));
-        botCommandList.add(new BotCommand("/currency", "Налаштуавння валюти"));
-        botCommandList.add(new BotCommand("/time", "Налаштуавння сповіщення"));
-        botCommandList.add(new BotCommand("/number", "Налаштуавння знаків"));
+        List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
             this.execute(new SetMyCommands(botCommandList, new BotCommandScopeDefault(), null));
@@ -254,7 +249,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         executeMessage(sendMessage);
     }
 
-    private void executeMessage(SendMessage message) {
+    public void executeMessage(SendMessage message) {
         try {
             execute(message);
         } catch (TelegramApiException e) {
