@@ -3,7 +3,8 @@ package com.godeveloper.currencyconverter.service;
 import com.godeveloper.currencyconverter.config.BotConfig;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.Log;
-import com.godeveloper.currencyconverter.service.utilits.BotCommandListMenu;
+import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenu;
+import com.godeveloper.currencyconverter.service.utilits.commands.StartCommand;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -19,7 +20,7 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final SendMessage sendMessage;
+    public final SendMessage sendMessage;
     private final BotConfig config;
 
     public TelegramBot(BotConfig config) {
@@ -45,6 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         return config.getBotName();
     }
 
+
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -53,36 +55,48 @@ public class TelegramBot extends TelegramLongPollingBot {
             String username = update.getMessage().getChat().getUserName();
             long chatId = update.getMessage().getChatId();
 
-            switch (messageText) {
-                case "/start" -> startCommand(chatId);
-                case "/info" -> infoMessage(chatId);
-                case "/setting" -> settingsMessage(chatId);
-                case "/bank" -> bankSettings(chatId);
-                case "/currency" -> currencySettings(chatId);
-                case "/time" -> timeSettings(chatId);
-                case "/number" -> numberSettings(chatId);
-            }
-            Log.Info(username, messageText);
+
+            processMessage(messageText, username, chatId);
         }
 
         if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
 
-            switch (callbackData) {
-                case "ОТРИМАТИ ІНФО" -> infoMessage(chatIdBackQuery);
-                case "НАЛАШТУВАННЯ" -> settingsMessage(chatIdBackQuery);
-                case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> numberSettings(chatIdBackQuery);
-                case "ВАЛЮТИ" -> currencySettings(chatIdBackQuery);
-                case "БАНК" -> bankSettings(chatIdBackQuery);
-                case "ЧАС СПОВІЩЕНЬ" -> timeSettings(chatIdBackQuery);
-            }
-
-            Log.button(callbackData);
+            processCallbackQuery(callbackData, chatIdBackQuery);
         }
     }
 
-    private void startCommand(long chatId) {
+    private void processMessage(String messageText, String username, long chatId) {
+        StartCommand startCommand = new StartCommand(new TelegramBot(config));
+
+
+        switch (messageText) {
+            case "/start" -> startCommand.execute(chatId);//startCommand(chatId);
+            case "/info" -> infoMessage(chatId);
+            case "/setting" -> settingsMessage(chatId);
+            case "/bank" -> bankSettings(chatId);
+            case "/currency" -> currencySettings(chatId);
+            case "/time" -> timeSettings(chatId);
+            case "/number" -> numberSettings(chatId);
+        }
+        Log.Info(username, messageText);
+    }
+
+    private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
+        switch (callbackData) {
+            case "ОТРИМАТИ ІНФО" -> infoMessage(chatIdBackQuery);
+            case "НАЛАШТУВАННЯ" -> settingsMessage(chatIdBackQuery);
+            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> numberSettings(chatIdBackQuery);
+            case "ВАЛЮТИ" -> currencySettings(chatIdBackQuery);
+            case "БАНК" -> bankSettings(chatIdBackQuery);
+            case "ЧАС СПОВІЩЕНЬ" -> timeSettings(chatIdBackQuery);
+        }
+
+        Log.button(callbackData);
+    }
+
+    public void startCommand(long chatId) {
         String answer = EmojiParser.parseToUnicode("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют" + " :currency_exchange: !");
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
@@ -130,7 +144,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"2", "3", "4"});
+                new String[]{"2", "3", "4", "без округлення"});
         sendMessage.setReplyMarkup(markup);
 
         executeMessage(sendMessage);
