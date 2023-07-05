@@ -4,7 +4,7 @@ import com.godeveloper.currencyconverter.config.BotConfig;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.Log;
 import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenu;
-import com.godeveloper.currencyconverter.service.utilits.commands.StartCommand;
+import com.godeveloper.currencyconverter.service.utilits.commands.StartCommandHandler;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -68,11 +68,11 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void processMessage(String messageText, String username, long chatId) {
-        StartCommand startCommand = new StartCommand(new TelegramBot(config));
+        StartCommandHandler startCommandHandler = new StartCommandHandler(new TelegramBot(config));
 
 
         switch (messageText) {
-            case "/start" -> startCommand.execute(chatId);//startCommand(chatId);
+            case "/start" -> startCommandHandler.execute(chatId);//startCommand(chatId);
             case "/info" -> infoMessage(chatId);
             case "/setting" -> settingsMessage(chatId);
             case "/bank" -> bankSettings(chatId);
@@ -144,7 +144,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setText(answer);
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"2", "3", "4", "без округлення"});
+                new String[]{"2", "3", "4"});
         sendMessage.setReplyMarkup(markup);
 
         executeMessage(sendMessage);
