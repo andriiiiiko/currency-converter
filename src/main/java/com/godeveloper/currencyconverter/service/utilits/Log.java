@@ -1,7 +1,6 @@
 package com.godeveloper.currencyconverter.service.utilits;
 
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
 import java.sql.Timestamp;
 
 public class Log {

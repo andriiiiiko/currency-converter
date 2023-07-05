@@ -1,9 +1,9 @@
 package com.godeveloper.currencyconverter.service;
 
 import com.godeveloper.currencyconverter.config.BotConfig;
-import com.godeveloper.currencyconverter.service.utilits.keyboaed.InlineKeyboardMarkupBuilderUtil;
+import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.Log;
-import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenuUtil;
+import com.godeveloper.currencyconverter.service.utilits.BotCommandListMenu;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,7 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
 import java.util.*;
 
 @Component
@@ -27,7 +26,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         this.config = config;
         this.sendMessage = new SendMessage();
 
-        List<BotCommand> botCommandList = BotCommandListMenuUtil.getBotCommandList();
+        List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
             this.execute(new SetMyCommands(botCommandList, new BotCommandScopeDefault(), null));
@@ -88,7 +87,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Отримати інфо", "Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
@@ -104,7 +103,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
@@ -117,7 +116,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Банк", "Валюти", "Час сповіщень", "Кількість знаків після коми"});
         sendMessage.setReplyMarkup(markup);
 
@@ -130,7 +129,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"2", "3", "4"});
         sendMessage.setReplyMarkup(markup);
 
@@ -143,7 +142,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"EUR", "USD"});
         sendMessage.setReplyMarkup(markup);
 
@@ -156,7 +155,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"НБУ", "Приват", "Райфайзен"});
         sendMessage.setReplyMarkup(markup);
 
@@ -169,8 +168,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"});
         sendMessage.setReplyMarkup(markup);
 
