@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class CurrencyModelPrivatBank {
-    private String ccy;
-    private String base_ccy;
-    private String buy;
-    private String sale;
+    private final String ccy;
+    private final String base_ccy;
+    private final String buy;
+    private final String sale;
 }

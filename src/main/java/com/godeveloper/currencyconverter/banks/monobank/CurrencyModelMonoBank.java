@@ -3,7 +3,7 @@ package com.godeveloper.currencyconverter.banks.monobank;
 import lombok.Data;
 
 @Data
-public class CurrencyModelMonobank {
+public class CurrencyModelMonoBank {
 
     private final int currencyCodeA;
     private final int currencyCodeB;

@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class CurrencyServiceMonobank {
+public class CurrencyServiceMonoBank {
 
     private static final String BASE_URL = "https://api.monobank.ua/bank/currency";
     private static final Gson gson = new Gson();
     private static final HttpClient httpClient = HttpClients.createDefault();
-    private static List<CurrencyModelMonobank> cachedCurrencyRates;
+    private static List<CurrencyModelMonoBank> cachedCurrencyRates;
 
-    public static List<CurrencyModelMonobank> getCurrencyRate() {
+    public static List<CurrencyModelMonoBank> getCurrencyRate() {
         HttpGet request = new HttpGet(BASE_URL);
 
         try {
@@ -27,7 +27,7 @@ public class CurrencyServiceMonobank {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                CurrencyModelMonobank[] tasks = gson.fromJson(responseBody, CurrencyModelMonobank[].class);
+                CurrencyModelMonoBank[] tasks = gson.fromJson(responseBody, CurrencyModelMonoBank[].class);
                 cachedCurrencyRates = Arrays.asList(tasks);
 
                 return cachedCurrencyRates;
@@ -43,7 +43,7 @@ public class CurrencyServiceMonobank {
         getCurrencyRate();
 
         if (cachedCurrencyRates != null) {
-            for (CurrencyModelMonobank currencyModel : cachedCurrencyRates) {
+            for (CurrencyModelMonoBank currencyModel : cachedCurrencyRates) {
                 if (currencyModel.getCurrencyCodeA() == convertCurrencyToNumber(currency)) {
                     return "Курси в Monobank: " + currency + "/UAN" + "\n" +
                             "Купівля: " + currencyModel.getRateBuy() + "\n" +
