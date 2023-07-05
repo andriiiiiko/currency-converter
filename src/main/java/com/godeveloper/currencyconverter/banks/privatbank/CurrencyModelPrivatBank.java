@@ -1,6 +1,7 @@
 package com.godeveloper.currencyconverter.banks.privatbank;
 
 public class CurrencyModelPrivatBank {
+
     private String ccy;
     private String base_ccy;
     private String buy;
