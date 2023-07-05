@@ -2,7 +2,6 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 import com.godeveloper.currencyconverter.banks.privatbank.CurrencyService;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
-import com.vdurmont.emoji.EmojiParser;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
@@ -10,12 +9,10 @@ public class Commands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
-    private final CurrencyService currencyService;
 
     public Commands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
-        this.currencyService = new CurrencyService();
     }
 
     public void start(long chatId) {
@@ -31,7 +28,7 @@ public class Commands {
 
     public void infoMessage(long chatId, String currency) {
         sendMessage.setChatId(chatId);
-        sendMessage.setText(currencyService.getCurrencyInformation(currency));
+        sendMessage.setText(CurrencyService.getCurrencyInformation(currency));
 
         telegramBot.executeMessage(sendMessage);
     }
