@@ -1,11 +1,10 @@
 package com.godeveloper.currencyconverter.service.utilits.commands;
 
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class BotCommandListMenu {
+public class BotCommandListMenuUtil {
 
     public static List<BotCommand> getBotCommandList() {
         List<BotCommand> botCommandList = new ArrayList<>();

@@ -1,9 +1,9 @@
 package com.godeveloper.currencyconverter.service;
 
 import com.godeveloper.currencyconverter.config.BotConfig;
-import com.godeveloper.currencyconverter.service.utilits.Keyboaed.InlineKeyboardMarkupBuilder;
+import com.godeveloper.currencyconverter.service.utilits.keyboaed.InlineKeyboardMarkupBuilderUtil;
 import com.godeveloper.currencyconverter.service.utilits.Log;
-import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenu;
+import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenuUtil;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -27,7 +27,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         this.config = config;
         this.sendMessage = new SendMessage();
 
-        List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
+        List<BotCommand> botCommandList = BotCommandListMenuUtil.getBotCommandList();
 
         try {
             this.execute(new SetMyCommands(botCommandList, new BotCommandScopeDefault(), null));
@@ -88,7 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"Отримати інфо", "Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
@@ -104,7 +104,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
@@ -117,7 +117,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"Банк", "Валюти", "Час сповіщень", "Кількість знаків після коми"});
         sendMessage.setReplyMarkup(markup);
 
@@ -130,7 +130,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"2", "3", "4"});
         sendMessage.setReplyMarkup(markup);
 
@@ -143,7 +143,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"EUR", "USD"});
         sendMessage.setReplyMarkup(markup);
 
@@ -156,7 +156,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"НБУ", "Приват", "Райфайзен"});
         sendMessage.setReplyMarkup(markup);
 
@@ -170,7 +170,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setText(answer);
 
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilderUtil.buildMarkup(
                 new String[]{"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"});
         sendMessage.setReplyMarkup(markup);
 
