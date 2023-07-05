@@ -5,12 +5,12 @@ import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBui
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-public class Commands {
+public class BotCommands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
 
-    public Commands(TelegramBot telegramBot) {
+    public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
     }
@@ -87,5 +87,4 @@ public class Commands {
 
         telegramBot.executeMessage(sendMessage);
     }
-
 }

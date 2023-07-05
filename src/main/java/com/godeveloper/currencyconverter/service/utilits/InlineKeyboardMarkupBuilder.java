@@ -8,7 +8,6 @@ import java.util.List;
 public class InlineKeyboardMarkupBuilder {
 
     public static InlineKeyboardMarkup buildMarkup(String[] buttonTexts) {
-
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
         for (String buttonText : buttonTexts) {
