@@ -37,17 +37,22 @@ public class CurrencyService {
 
     public static String getCurrencyInformation(String currency) {
         List<CurrencyModelPrivatBank> currencyList = getCurrencyRate();
-
+        StringBuilder result = new StringBuilder();
         if (currencyList != null) {
             for (CurrencyModelPrivatBank currencyModelPrivatbank : currencyList) {
                 if (currencyModelPrivatbank.getCcy().equals(currency)) {
-                    return "Курси в Приватбанк: " + currencyModelPrivatbank.getCcy() + "/" + currencyModelPrivatbank.getBase_ccy() + "\n" +
-                            "Купівля: " + currencyModelPrivatbank.getBuy() + "\n" +
-                            "Продаж: " + currencyModelPrivatbank.getSale();
+                    result.append("Курси в Приватбанк: ")
+                            .append(currencyModelPrivatbank.getCcy())
+                            .append("/")
+                            .append(currencyModelPrivatbank.getBase_ccy())
+                            .append("\n").append("Купівля: ")
+                            .append(currencyModelPrivatbank.getBuy()).append("\n")
+                            .append("Продаж: ")
+                            .append(currencyModelPrivatbank.getSale());
                 }
             }
         }
 
-        return null;
+        return result.toString();
     }
 }
