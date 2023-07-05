@@ -17,13 +17,11 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final SendMessage sendMessage;
     private final BotConfig config;
     private Commands commands;
 
     public TelegramBot(BotConfig config) {
         this.config = config;
-        this.sendMessage = new SendMessage();
 
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
