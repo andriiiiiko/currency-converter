@@ -11,7 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-public class CurrencyService {
+public class CurrencyServicePrivateBank {
+
     private static final String BASE_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11";
     private static final Gson GSON = new Gson();
     private static final HttpClient HTTP_CLIENT = HttpClients.createDefault();
@@ -26,6 +27,7 @@ public class CurrencyService {
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                 CurrencyModelPrivatBank[] tasks = GSON.fromJson(responseBody, CurrencyModelPrivatBank[].class);
+
                 return Arrays.asList(tasks);
             }
         } catch (IOException e) {
@@ -41,7 +43,7 @@ public class CurrencyService {
         if (currencyList != null) {
             for (CurrencyModelPrivatBank currencyModelPrivatbank : currencyList) {
                 if (currencyModelPrivatbank.getCcy().equals(currency)) {
-                    return "Курси в Приватбанк: " + currencyModelPrivatbank.getCcy() + "/" + currencyModelPrivatbank.getBase_ccy() + "\n" +
+                    return "Курси в Приватбанк: " + currency + "/UAN" + "\n" +
                             "Купівля: " + currencyModelPrivatbank.getBuy() + "\n" +
                             "Продаж: " + currencyModelPrivatbank.getSale();
                 }
