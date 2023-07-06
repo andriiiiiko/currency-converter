@@ -17,73 +17,67 @@ public class BotCommands {
     }
 
     public void start(long chatId) {
-        sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        messageBuilder(chatId,
+                "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!",
                 new String[]{"Отримати інфо", "Налаштування"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
     }
 
     public void infoMessage(long chatId, String currency) {
-        sendMessage(chatId, CurrencyService.getCurrencyInformation(currency));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder(chatId,
+                CurrencyService.getCurrencyInformation(currency));
     }
 
     public void settingsMessage(long chatId) {
-        sendMessage(chatId, "Налаштування");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        messageBuilder(chatId,
+                "Налаштування",
                 new String[]{"Банк", "Валюта", "Час сповіщень", "Кількість знаків після коми"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
     }
 
     public void numberSettings(long chatId) {
-        sendMessage(chatId, "Виберіть кількість знаків після коми");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        messageBuilder(chatId,
+                "Виберіть кількість знаків після коми",
                 new String[]{"2", "3", "4"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
     }
 
     public void currencySettings(long chatId) {
-        sendMessage(chatId, "Виберіть валюту");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        messageBuilder(chatId,
+                "Виберіть валюту",
                 new String[]{"EUR", "USD"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
     }
 
     public void bankSettings(long chatId) {
-        sendMessage(chatId, "Виберіть банк");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"НБУ", "Приват", "Моно"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder(chatId,
+                "Виберіть банк",
+                new String[]{"НБУ", "Моно", "Приват"});
     }
 
     public void timeSettings(long chatId) {
-        sendMessage(chatId, "Виберіть час сповіщення");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+        messageBuilder(chatId,
+                "Виберіть час сповіщення",
                 new String[]{"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"});
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
     }
 
     private void sendMessage(long chatId, String answer) {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
+    }
+
+    private void setReplyMarkup(String[] nameButton) {
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(nameButton);
+        sendMessage.setReplyMarkup(markup);
+    }
+
+    private void executeMessage() {
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    private void messageBuilder(long chatId, String answer) {
+        sendMessage(chatId, answer);
+        executeMessage();
+    }
+    private void messageBuilder(long chatId, String answer, String[] nameButton) {
+        sendMessage(chatId, answer);
+        setReplyMarkup(nameButton);
+        executeMessage();
     }
 }
