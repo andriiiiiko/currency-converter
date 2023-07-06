@@ -8,7 +8,6 @@ public class Log {
     public static void Error(TelegramApiException e) {
         System.out.println("LOG.ERROR: " + new Timestamp(System.currentTimeMillis()) +
                 "\nError occurred: " + e.getMessage() + "\n");
-
     }
 
     public static void Info(String name, String text) {
@@ -22,4 +21,3 @@ public class Log {
                 "\nReply to using button: " + name + "\n");
     }
 }
-

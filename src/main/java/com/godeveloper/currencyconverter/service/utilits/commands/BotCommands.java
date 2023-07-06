@@ -6,13 +6,10 @@ import com.godeveloper.currencyconverter.service.utilits.MessageBuilder;
 
 public class BotCommands {
 
-    private final TelegramBot telegramBot;
-    private MessageBuilder messageBuilder;
+    private final MessageBuilder messageBuilder;
 
     public BotCommands(TelegramBot telegramBot) {
-        this.telegramBot = telegramBot;
         this.messageBuilder = new MessageBuilder(telegramBot);
-        //this.sendMessage = new SendMessage();
     }
 
     public void start(long chatId) {
