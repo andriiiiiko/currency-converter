@@ -18,7 +18,7 @@ public class CurrencyServiceMonoBank {
     private static final HttpClient HTTP_CLIENT = HttpClients.createDefault();
     private static List<CurrencyModelMonoBank> cachedCurrencyRates;
 
-    public static List<CurrencyModelMonoBank> getCurrencyRate() {
+    public static void getCurrencyRate() {
         HttpGet request = new HttpGet(BASE_URL);
 
         try {
@@ -27,16 +27,11 @@ public class CurrencyServiceMonoBank {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                List<CurrencyModelMonoBank> currencyList = GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelMonoBank>>() {}.getType());
-                cachedCurrencyRates = currencyList;
-
-                return cachedCurrencyRates;
+                cachedCurrencyRates = GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelMonoBank>>() {}.getType());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 
     public static String getCurrencyInformation(String currency) {

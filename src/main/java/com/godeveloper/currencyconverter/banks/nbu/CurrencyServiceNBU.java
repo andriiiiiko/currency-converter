@@ -26,9 +26,8 @@ public class CurrencyServiceNBU {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                List<CurrencyModelNBU> currencyList = GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelNBU>>() {}.getType());
 
-                return currencyList;
+                return  GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelNBU>>() {}.getType());
             }
         } catch (IOException e) {
             e.printStackTrace();

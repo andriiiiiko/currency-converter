@@ -25,8 +25,8 @@ public class CurrencyService {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                List<CurrencyModelPrivatBank> currencyList = GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelPrivatBank>>() {}.getType());
-                return currencyList;
+
+                return GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelPrivatBank>>() {}.getType());
             }
         } catch (IOException e) {
             e.printStackTrace();
