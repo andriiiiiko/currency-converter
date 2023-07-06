@@ -45,9 +45,9 @@ public class CurrencyService {
                             .append(currencyModelPrivatbank.getCcy())
                             .append("/")
                             .append(currencyModelPrivatbank.getBase_ccy())
-                            .append("\n").append("Купівля: ")
-                            .append(currencyModelPrivatbank.getBuy()).append("\n")
-                            .append("Продаж: ")
+                            .append("\nКупівля: ")
+                            .append(currencyModelPrivatbank.getBuy())
+                            .append("\nПродаж: ")
                             .append(currencyModelPrivatbank.getSale());
                 }
             }
