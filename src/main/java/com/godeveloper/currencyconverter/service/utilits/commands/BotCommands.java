@@ -2,8 +2,10 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 import com.godeveloper.currencyconverter.banks.privatbank.CurrencyService;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
+import com.godeveloper.currencyconverter.service.utilits.Log;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BotCommands {
 
@@ -16,8 +18,7 @@ public class BotCommands {
     }
 
     public void start(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
+        sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Отримати інфо", "Налаштування"});
@@ -27,15 +28,13 @@ public class BotCommands {
     }
 
     public void infoMessage(long chatId, String currency) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(CurrencyService.getCurrencyInformation(currency));
+        sendMessage(chatId, CurrencyService.getCurrencyInformation(currency));
 
         telegramBot.executeMessage(sendMessage);
     }
 
     public void settingsMessage(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Налаштування");
+        sendMessage(chatId, "Налаштування");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Банк", "Валюта", "Час сповіщень", "Кількість знаків після коми"});
@@ -45,8 +44,7 @@ public class BotCommands {
     }
 
     public void numberSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть кількість знаків після коми");
+        sendMessage(chatId, "Виберіть кількість знаків після коми");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"2", "3", "4"});
@@ -56,8 +54,7 @@ public class BotCommands {
     }
 
     public void currencySettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть валюту");
+        sendMessage(chatId, "Виберіть валюту");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"EUR", "USD"});
@@ -67,8 +64,7 @@ public class BotCommands {
     }
 
     public void bankSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть банк");
+        sendMessage(chatId, "Виберіть банк");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"НБУ", "Приват", "Моно"});
@@ -78,13 +74,17 @@ public class BotCommands {
     }
 
     public void timeSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть час сповіщення");
+        sendMessage(chatId, "Виберіть час сповіщення");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"});
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
+    }
+
+    private void sendMessage(long chatId, String answer) {
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
     }
 }
