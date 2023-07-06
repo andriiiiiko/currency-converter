@@ -2,10 +2,8 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 import com.godeveloper.currencyconverter.banks.privatbank.CurrencyService;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
-import com.godeveloper.currencyconverter.service.utilits.Log;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BotCommands {
 
