@@ -30,8 +30,6 @@ public class MessageBuilder {
         this.nameButton = nameButton;
     }
 
-    
-    
     private void sendMessage(long chatId, String answer) {
         sendMessage.setChatId(chatId);
         sendMessage.setText(answer);
