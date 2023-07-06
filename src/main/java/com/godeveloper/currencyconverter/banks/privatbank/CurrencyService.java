@@ -1,9 +1,9 @@
 package com.godeveloper.currencyconverter.banks.privatbank;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -25,8 +25,8 @@ public class CurrencyService {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                CurrencyModelPrivatBank[] tasks = GSON.fromJson(responseBody, CurrencyModelPrivatBank[].class);
-                return Arrays.asList(tasks);
+
+                return GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelPrivatBank>>() {}.getType());
             }
         } catch (IOException e) {
             e.printStackTrace();
