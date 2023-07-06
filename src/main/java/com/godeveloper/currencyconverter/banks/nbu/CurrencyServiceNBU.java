@@ -1,6 +1,7 @@
 package com.godeveloper.currencyconverter.banks.nbu;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -8,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class CurrencyServiceNBU {
@@ -26,9 +26,9 @@ public class CurrencyServiceNBU {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                CurrencyModelNBU[] tasks = GSON.fromJson(responseBody, CurrencyModelNBU[].class);
+                List<CurrencyModelNBU> currencyList = GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelNBU>>() {}.getType());
 
-                return Arrays.asList(tasks);
+                return currencyList;
             }
         } catch (IOException e) {
             e.printStackTrace();
