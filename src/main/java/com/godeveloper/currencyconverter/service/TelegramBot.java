@@ -55,8 +55,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
-            long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
             String username = update.getCallbackQuery().getFrom().getUserName();
+            long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
 
             processHandler.callbackQuery(callbackData, username, chatIdBackQuery);
         }
