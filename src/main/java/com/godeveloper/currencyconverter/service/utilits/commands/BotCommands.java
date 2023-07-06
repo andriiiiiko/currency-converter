@@ -1,5 +1,5 @@
 package com.godeveloper.currencyconverter.service.utilits.commands;
-import com.godeveloper.currencyconverter.banks.privatbank.CurrencyService;
+import com.godeveloper.currencyconverter.banks.privatbank.CurrencyServicePrivatBank;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -28,7 +28,7 @@ public class BotCommands {
 
     public void infoMessage(long chatId, String currency) {
         sendMessage.setChatId(chatId);
-        sendMessage.setText(CurrencyService.getCurrencyInformation(currency));
+        sendMessage.setText(CurrencyServicePrivatBank.getCurrencyInformation(currency));
 
         telegramBot.executeMessage(sendMessage);
     }
