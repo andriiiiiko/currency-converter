@@ -16,8 +16,8 @@ public class Log {
                 "using text: " + text);
     }
 
-    public static void button(String name) {
+    public static void button(String name, String callbackData) {
         System.out.println("\nLOG.INFO: " + new Timestamp(System.currentTimeMillis()) +
-                "\nReply to using button: " + name + "\n");
+                "\nReply to using button: " + name +  " " + callbackData + "\n");
     }
 }

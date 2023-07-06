@@ -28,7 +28,7 @@ public class ProcessHandler {
         Log.Info(username, messageText);
     }
 
-    public void callbackQuery(String callbackData, long chatIdBackQuery) {
+    public void callbackQuery(String callbackData, String username, long chatIdBackQuery) {
         switch (callbackData) {
             case "ОТРИМАТИ ІНФО" -> {
                 botCommands.infoMessage(chatIdBackQuery, "USD");
@@ -41,6 +41,6 @@ public class ProcessHandler {
             case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
         }
 
-        Log.button(callbackData);
+        Log.button(username, callbackData);
     }
 }
