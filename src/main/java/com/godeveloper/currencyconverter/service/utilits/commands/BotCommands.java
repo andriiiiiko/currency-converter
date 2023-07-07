@@ -55,4 +55,5 @@ public class BotCommands {
     public void timeSettings(long chatId) {
         messageBuilder.createMessage(chatId,
                 "Виберіть час сповіщення", TIME);
+    }
 }
