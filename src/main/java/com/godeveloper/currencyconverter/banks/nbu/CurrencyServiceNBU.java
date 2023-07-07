@@ -38,17 +38,23 @@ public class CurrencyServiceNBU {
 
     public static String getCurrencyInformation(String currency) {
         List<CurrencyModelNBU> currencyList = getCurrencyRate();
+        StringBuilder result = new StringBuilder();
 
         if (currencyList != null) {
             for (CurrencyModelNBU currencyModelNBU : currencyList) {
                 if (currencyModelNBU.getCc().equals(currency)) {
-                    return "Курси в NBU: " + currency + "/UAN" + "\n" +
-                            "Купівля: " + currencyModelNBU.getRate() + "\n" +
-                            "Продаж: " + currencyModelNBU.getRate();
+                    result.append("Курс в NBU: ")
+                            .append(currency)
+                            .append("/UAN\n")
+                            .append("Купівля: ")
+                            .append(currencyModelNBU.getRate())
+                            .append("\nПродаж: ")
+                            .append(currencyModelNBU.getRate())
+                            .append("\n\n");
                 }
             }
         }
 
-        return null;
+        return result.toString();
     }
 }

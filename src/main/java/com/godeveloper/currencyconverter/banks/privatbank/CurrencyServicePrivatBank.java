@@ -1,9 +1,9 @@
 package com.godeveloper.currencyconverter.banks.privatbank;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -25,8 +25,8 @@ public class CurrencyServicePrivatBank {
 
             if (statusCode == HttpStatus.SC_OK) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-
-                return GSON.fromJson(responseBody, new TypeToken<List<CurrencyModelPrivatBank>>() {}.getType());
+                CurrencyModelPrivatBank[] tasks = GSON.fromJson(responseBody, CurrencyModelPrivatBank[].class);
+                return Arrays.asList(tasks);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,17 +38,19 @@ public class CurrencyServicePrivatBank {
     public static String getCurrencyInformation(String currency) {
         List<CurrencyModelPrivatBank> currencyList = getCurrencyRate();
         StringBuilder result = new StringBuilder();
+
         if (currencyList != null) {
             for (CurrencyModelPrivatBank currencyModelPrivatbank : currencyList) {
                 if (currencyModelPrivatbank.getCcy().equals(currency)) {
-                    result.append("Курси в Приватбанк: ")
+                    result.append("Курс в Приватбанк: ")
                             .append(currencyModelPrivatbank.getCcy())
                             .append("/")
                             .append(currencyModelPrivatbank.getBase_ccy())
-                            .append("\n").append("Купівля: ")
-                            .append(currencyModelPrivatbank.getBuy()).append("\n")
-                            .append("Продаж: ")
-                            .append(currencyModelPrivatbank.getSale());
+                            .append("\nКупівля: ")
+                            .append(currencyModelPrivatbank.getBuy())
+                            .append("\nПродаж: ")
+                            .append(currencyModelPrivatbank.getSale())
+                            .append("\n\n");
                 }
             }
         }

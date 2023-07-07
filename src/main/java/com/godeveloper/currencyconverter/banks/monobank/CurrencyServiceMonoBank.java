@@ -34,22 +34,6 @@ public class CurrencyServiceMonoBank {
         }
     }
 
-    public static String getCurrencyInformation(String currency) {
-        getCurrencyRate();
-
-        if (cachedCurrencyRates != null) {
-            for (CurrencyModelMonoBank currencyModel : cachedCurrencyRates) {
-                if (currencyModel.getCurrencyCodeA() == convertCurrencyToNumber(currency)) {
-                    return "Курси в Monobank: " + currency + "/UAN" + "\n" +
-                            "Купівля: " + currencyModel.getRateBuy() + "\n" +
-                            "Продаж: " + currencyModel.getRateSell();
-                }
-            }
-        }
-
-        return null;
-    }
-
     public static int convertCurrencyToNumber(String currency) {
         int currencyNumber = 0;
 
@@ -60,5 +44,27 @@ public class CurrencyServiceMonoBank {
         }
 
         return currencyNumber;
+    }
+
+    public static String getCurrencyInformation(String currency) {
+        getCurrencyRate();
+        StringBuilder result = new StringBuilder();
+
+        if (cachedCurrencyRates != null) {
+            for (CurrencyModelMonoBank currencyModel : cachedCurrencyRates) {
+                if (currencyModel.getCurrencyCodeA() == convertCurrencyToNumber(currency)) {
+                    result.append("Курс в Monobank: ")
+                            .append(currency)
+                            .append("/UAN\n")
+                            .append("Купівля: ")
+                            .append(currencyModel.getRateBuy())
+                            .append("\nПродаж: ")
+                            .append(currencyModel.getRateSell())
+                            .append("\n\n");
+                }
+            }
+        }
+
+        return result.toString();
     }
 }
