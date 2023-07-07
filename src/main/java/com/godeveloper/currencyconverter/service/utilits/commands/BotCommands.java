@@ -7,6 +7,8 @@ import com.godeveloper.currencyconverter.service.utilits.MessageBuilder;
 
 public class BotCommands {
 
+    private final String[] TIME = {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"};
+
     private final MessageBuilder messageBuilder;
 
     public BotCommands(TelegramBot telegramBot) {
@@ -52,7 +54,5 @@ public class BotCommands {
 
     public void timeSettings(long chatId) {
         messageBuilder.createMessage(chatId,
-                "Виберіть час сповіщення",
-                new String[]{"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "Виключити сповіщення"});
-    }
+                "Виберіть час сповіщення", TIME);
 }
