@@ -11,6 +11,9 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.List;
 
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.getFormat;
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.setNumberFormat;
+
 public class CurrencyServiceNBU {
 
     private static final String BASE_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
@@ -43,8 +46,8 @@ public class CurrencyServiceNBU {
             for (CurrencyModelNBU currencyModelNBU : currencyList) {
                 if (currencyModelNBU.getCc().equals(currency)) {
                     return "Курси в NBU: " + currency + "/UAN" + "\n" +
-                            "Купівля: " + currencyModelNBU.getRate() + "\n" +
-                            "Продаж: " + currencyModelNBU.getRate();
+                            "Купівля: " + setNumberFormat(currencyModelNBU.getRate(), getFormat()) + "\n" +
+                            "Продаж: " + setNumberFormat(currencyModelNBU.getRate(), getFormat());
                 }
             }
         }

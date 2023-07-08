@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.getFormat;
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.setNumberFormat;
+
 public class CurrencyServicePrivatBank {
     private static final String BASE_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11";
     private static final Gson GSON = new Gson();
@@ -46,9 +49,10 @@ public class CurrencyServicePrivatBank {
                             .append("/")
                             .append(currencyModelPrivatbank.getBase_ccy())
                             .append("\n").append("Купівля: ")
-                            .append(currencyModelPrivatbank.getBuy()).append("\n")
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getBuy()), getFormat())).append("\n")
                             .append("Продаж: ")
-                            .append(currencyModelPrivatbank.getSale());
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getSale()), getFormat()));
+
                 }
             }
         }
