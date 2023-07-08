@@ -96,6 +96,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "2" -> botCommands.setFormat("#.##");
             case "3" -> botCommands.setFormat("#.###");
             case "4" -> botCommands.setFormat("#.####");
+
         }
 
         Log.button(callbackData);
