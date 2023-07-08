@@ -12,7 +12,7 @@ public class BotCommands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
-    private static String format = "#.####";
+    private static String format = "#.##";
 
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
