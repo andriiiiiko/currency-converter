@@ -20,7 +20,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private BotCommands botCommands;
 
-
     public TelegramBot(BotConfig config) {
         this.config = config;
 
