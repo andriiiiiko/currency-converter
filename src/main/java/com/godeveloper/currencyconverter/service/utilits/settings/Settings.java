@@ -9,19 +9,19 @@ import java.util.Map;
 
 public class Settings {
 
-    private static Map<Long, UserSettings> usersSettings = new HashMap<>();
+    private static final Map<Long, UserSettings> USERS_SETTINGS = new HashMap<>();
 
     public static UserSettings getUserSettingsById (long chatId) {
-        return usersSettings.get(chatId);
+        return USERS_SETTINGS.get(chatId);
     }
 
     public static boolean isUserSettingsExists(long chatId) {
-        return usersSettings.containsKey(chatId);
+        return USERS_SETTINGS.containsKey(chatId);
     }
 
     public static void createUserSettings (long chatId) {
         UserSettings userSettings = new UserSettings();
-        usersSettings.put(chatId, userSettings);
+        USERS_SETTINGS.put(chatId, userSettings);
     }
 
     public static String checkSelectedBank (long chatId) {
@@ -29,18 +29,18 @@ public class Settings {
             createUserSettings(chatId);
         }
 
-         return usersSettings.get(chatId).getBank();
+         return USERS_SETTINGS.get(chatId).getBank();
     }
 
     public static String getCurrencyInformationFromSelectedBank (long chatId) {
         String result;
 
         if (checkSelectedBank(chatId).equals("Приват")) {
-            result = CurrencyServicePrivatBank.getCurrencyInformation(usersSettings.get(chatId).getCurrency());
+            result = CurrencyServicePrivatBank.getCurrencyInformation(USERS_SETTINGS.get(chatId).getCurrency());
         } else if (checkSelectedBank(chatId).equals("НБУ")) {
-            result = CurrencyServiceNBU.getCurrencyInformation(usersSettings.get(chatId).getCurrency());
+            result = CurrencyServiceNBU.getCurrencyInformation(USERS_SETTINGS.get(chatId).getCurrency());
         } else {
-            result = CurrencyServiceMonoBank.getCurrencyInformation(usersSettings.get(chatId).getCurrency());
+            result = CurrencyServiceMonoBank.getCurrencyInformation(USERS_SETTINGS.get(chatId).getCurrency());
         }
 
         return result;

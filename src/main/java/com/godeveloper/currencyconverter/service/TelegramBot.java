@@ -90,6 +90,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "ПРИВАТ" -> botCommands.setPrivat(chatIdBackQuery);
             case "МОНО" -> botCommands.setMono(chatIdBackQuery);
             case "НБУ" -> botCommands.setNBU(chatIdBackQuery);
+            case "USD" -> botCommands.setUSD(chatIdBackQuery);
+            case "EUR" -> botCommands.setEUR(chatIdBackQuery);
         }
 
         Log.button(callbackData);

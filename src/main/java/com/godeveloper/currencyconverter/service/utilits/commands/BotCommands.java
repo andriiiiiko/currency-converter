@@ -69,10 +69,29 @@ public class BotCommands {
         telegramBot.executeMessage(sendMessage);
     }
 
+    public void setUSD(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setCurrency("USD");
+        sendMessage.setText("Готово!");
+
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setEUR(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setCurrency("EUR");
+        sendMessage.setText("Готово!");
+
+        telegramBot.executeMessage(sendMessage);
+    }
+
     public void setMono(long chatId) {
         sendMessage.setChatId(chatId);
 
         Settings.getUserSettingsById(chatId).setBank("Моно");
+
         sendMessage.setText("Готово!");
         telegramBot.executeMessage(sendMessage);
     }
@@ -81,6 +100,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
 
         Settings.getUserSettingsById(chatId).setBank("Приват");
+
         sendMessage.setText("Готово!");
         telegramBot.executeMessage(sendMessage);
     }
@@ -89,6 +109,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
 
         Settings.getUserSettingsById(chatId).setBank("НБУ");
+
         sendMessage.setText("Готово!");
         telegramBot.executeMessage(sendMessage);
     }
