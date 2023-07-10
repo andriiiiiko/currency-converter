@@ -11,7 +11,7 @@ public class Settings {
 
     private static final Map<Long, UserSettings> USERS_SETTINGS = new HashMap<>();
 
-    public static UserSettings getUserSettingsById (long chatId) {
+    public static UserSettings getUserSettingsById(long chatId) {
         return USERS_SETTINGS.get(chatId);
     }
 
@@ -19,12 +19,12 @@ public class Settings {
         return USERS_SETTINGS.containsKey(chatId);
     }
 
-    public static void createUserSettings (long chatId) {
+    public static void createUserSettings(long chatId) {
         UserSettings userSettings = new UserSettings();
         USERS_SETTINGS.put(chatId, userSettings);
     }
 
-    public static String checkSelectedBank (long chatId) {
+    public static String checkSelectedBank(long chatId) {
         if (!isUserSettingsExists(chatId)) {
             createUserSettings(chatId);
         }
@@ -32,7 +32,7 @@ public class Settings {
          return USERS_SETTINGS.get(chatId).getBank();
     }
 
-    public static String getCurrencyInformationFromSelectedBank (long chatId) {
+    public static String getCurrencyInformationFromSelectedBank(long chatId) {
         String result;
 
         if (checkSelectedBank(chatId).equals("Приват")) {
