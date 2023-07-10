@@ -66,10 +66,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         switch (messageText) {
             case "/start" -> botCommands.start(chatId);
-            case "/info" -> {
-                botCommands.infoMessage(chatId, "USD");
-                botCommands.infoMessage(chatId, "EUR");
-            }
+            case "/info" -> botCommands.infoMessage(chatId);
             case "/setting" -> botCommands.settingsMessage(chatId);
             case "/bank" -> botCommands.bankSettings(chatId);
             case "/currency" -> botCommands.currencySettings(chatId);
@@ -84,15 +81,17 @@ public class TelegramBot extends TelegramLongPollingBot {
         botCommands = new BotCommands(new TelegramBot(config));
 
         switch (callbackData) {
-            case "ОТРИМАТИ ІНФО" -> {
-                botCommands.infoMessage(chatIdBackQuery, "USD");
-                botCommands.infoMessage(chatIdBackQuery, "EUR");
-            }
+            case "ОТРИМАТИ ІНФО" -> botCommands.infoMessage(chatIdBackQuery);
             case "НАЛАШТУВАННЯ" -> botCommands.settingsMessage(chatIdBackQuery);
             case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> botCommands.numberSettings(chatIdBackQuery);
             case "ВАЛЮТА" -> botCommands.currencySettings(chatIdBackQuery);
             case "БАНК" -> botCommands.bankSettings(chatIdBackQuery);
             case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
+            case "ПРИВАТ" -> botCommands.setPrivat(chatIdBackQuery);
+            case "МОНО" -> botCommands.setMono(chatIdBackQuery);
+            case "НБУ" -> botCommands.setNBU(chatIdBackQuery);
+            case "USD" -> botCommands.setUSD(chatIdBackQuery);
+            case "EUR" -> botCommands.setEUR(chatIdBackQuery);
         }
 
         Log.button(callbackData);

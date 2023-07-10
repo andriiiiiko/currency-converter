@@ -1,8 +1,8 @@
 package com.godeveloper.currencyconverter.service.utilits.commands;
 
-import com.godeveloper.currencyconverter.banks.privatbank.CurrencyServicePrivatBank;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
+import com.godeveloper.currencyconverter.service.utilits.settings.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
@@ -27,9 +27,9 @@ public class BotCommands {
         telegramBot.executeMessage(sendMessage);
     }
 
-    public void infoMessage(long chatId, String currency) {
+    public void infoMessage(long chatId) {
         sendMessage.setChatId(chatId);
-        sendMessage.setText(CurrencyServicePrivatBank.getCurrencyInformation(currency));
+        sendMessage.setText(Settings.getCurrencyInformationFromSelectedBank(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -64,6 +64,51 @@ public class BotCommands {
                 new String[]{"EUR", "USD"});
         sendMessage.setReplyMarkup(markup);
 
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setUSD(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setCurrency("USD");
+
+        sendMessage.setText("Ви обрали USD!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setEUR(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setCurrency("EUR");
+
+        sendMessage.setText("Ви обрали EUR!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setMono(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setBank("Моно");
+
+        sendMessage.setText("Ви обрали Монобанк!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setPrivat(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setBank("Приват");
+
+        sendMessage.setText("Ви обрали Приватбанк!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setNBU(long chatId) {
+        sendMessage.setChatId(chatId);
+
+        Settings.getUserSettingsById(chatId).setBank("НБУ");
+
+        sendMessage.setText("Ви обрали НБУ");
         telegramBot.executeMessage(sendMessage);
     }
 
