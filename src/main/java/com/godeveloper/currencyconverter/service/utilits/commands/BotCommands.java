@@ -6,6 +6,8 @@ import com.godeveloper.currencyconverter.service.utilits.settings.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
+import static com.godeveloper.currencyconverter.service.utilits.settings.Settings.getUserSettingsById;
+
 public class BotCommands {
 
     private final SendMessage sendMessage;
@@ -50,7 +52,11 @@ public class BotCommands {
         sendMessage.setText("Виберіть кількість знаків після коми");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"2", "3", "4"});
+                new String[]{
+                        getUserSettingsById(chatId).getNumber().equals("2") ? "✅ 2" : "2",
+                        getUserSettingsById(chatId).getNumber().equals("3") ? "✅ 3" : "3",
+                        getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4"
+                });
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
@@ -61,7 +67,10 @@ public class BotCommands {
         sendMessage.setText("Виберіть валюту");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"EUR", "USD"});
+                new String[]{
+                        getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
+                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR"
+                });
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
@@ -69,47 +78,12 @@ public class BotCommands {
 
     public void setUSD(long chatId) {
         sendMessage.setChatId(chatId);
-
-        Settings.getUserSettingsById(chatId).setCurrency("USD");
-
-        sendMessage.setText("Ви обрали USD!");
-        telegramBot.executeMessage(sendMessage);
+        getUserSettingsById(chatId).setCurrency("USD");
     }
 
     public void setEUR(long chatId) {
         sendMessage.setChatId(chatId);
-
-        Settings.getUserSettingsById(chatId).setCurrency("EUR");
-
-        sendMessage.setText("Ви обрали EUR!");
-        telegramBot.executeMessage(sendMessage);
-    }
-
-    public void setMono(long chatId) {
-        sendMessage.setChatId(chatId);
-
-        Settings.getUserSettingsById(chatId).setBank("Моно");
-
-        sendMessage.setText("Ви обрали Монобанк!");
-        telegramBot.executeMessage(sendMessage);
-    }
-
-    public void setPrivat(long chatId) {
-        sendMessage.setChatId(chatId);
-
-        Settings.getUserSettingsById(chatId).setBank("Приват");
-
-        sendMessage.setText("Ви обрали Приватбанк!");
-        telegramBot.executeMessage(sendMessage);
-    }
-
-    public void setNBU(long chatId) {
-        sendMessage.setChatId(chatId);
-
-        Settings.getUserSettingsById(chatId).setBank("НБУ");
-
-        sendMessage.setText("Ви обрали НБУ");
-        telegramBot.executeMessage(sendMessage);
+        getUserSettingsById(chatId).setCurrency("EUR");
     }
 
     public void bankSettings(long chatId) {
@@ -117,10 +91,29 @@ public class BotCommands {
         sendMessage.setText("Виберіть банк");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"НБУ", "Приват", "Моно"});
+                new String[]{
+                        getUserSettingsById(chatId).getBank().equals("НБУ") ? "✅ НБУ" : "НБУ",
+                        getUserSettingsById(chatId).getBank().equals("Приват") ? "✅ Приват" : "Приват",
+                        getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно"
+                });
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setMono(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Моно");
+    }
+
+    public void setPrivat(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Приват");
+    }
+
+    public void setNBU(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("НБУ");
     }
 
     public void timeSettings(long chatId) {

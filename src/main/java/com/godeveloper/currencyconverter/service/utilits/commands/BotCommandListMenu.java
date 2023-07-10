@@ -10,11 +10,11 @@ public class BotCommandListMenu {
         List<BotCommand> botCommandList = new ArrayList<>();
         botCommandList.add(new BotCommand("/start", "Запустити бота"));
         botCommandList.add(new BotCommand("/info", "Отримати інфо"));
-        botCommandList.add(new BotCommand("/setting", "Налаштуавння"));
-        botCommandList.add(new BotCommand("/bank", "Налаштуавння банку"));
-        botCommandList.add(new BotCommand("/currency", "Налаштуавння валюти"));
-        botCommandList.add(new BotCommand("/time", "Налаштуавння сповіщення"));
-        botCommandList.add(new BotCommand("/number", "Налаштуавння знаків"));
+        botCommandList.add(new BotCommand("/setting", "Налаштування"));
+        botCommandList.add(new BotCommand("/bank", "Налаштування банку"));
+        botCommandList.add(new BotCommand("/currency", "Налаштування валюти"));
+        botCommandList.add(new BotCommand("/time", "Налаштування сповіщення"));
+        botCommandList.add(new BotCommand("/number", "Налаштування знаків"));
         return botCommandList;
     }
 }
