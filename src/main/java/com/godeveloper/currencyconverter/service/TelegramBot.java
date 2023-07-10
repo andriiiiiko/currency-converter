@@ -93,6 +93,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "ВАЛЮТА" -> botCommands.currencySettings(chatIdBackQuery);
             case "БАНК" -> botCommands.bankSettings(chatIdBackQuery);
             case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
+            case "2" -> botCommands.setFormat("#.##");
+            case "3" -> botCommands.setFormat("#.###");
+            case "4" -> botCommands.setFormat("#.####");
         }
 
         Log.button(callbackData);

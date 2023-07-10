@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.getFormat;
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.setNumberFormat;
+
 public class CurrencyServicePrivatBank {
     private static final String BASE_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11";
     private static final Gson GSON = new Gson();
@@ -43,13 +46,13 @@ public class CurrencyServicePrivatBank {
             for (CurrencyModelPrivatBank currencyModelPrivatbank : currencyList) {
                 if (currencyModelPrivatbank.getCcy().equals(currency)) {
                     result.append("Курс в Приватбанк: ")
-                            .append(currencyModelPrivatbank.getCcy())
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getCcy()), getFormat()))
                             .append("/")
-                            .append(currencyModelPrivatbank.getBase_ccy())
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getBase_ccy()), getFormat()))
                             .append("\nКупівля: ")
-                            .append(currencyModelPrivatbank.getBuy())
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getBuy()), getFormat()))
                             .append("\nПродаж: ")
-                            .append(currencyModelPrivatbank.getSale());
+                            .append(setNumberFormat(Float.parseFloat(currencyModelPrivatbank.getSale()), getFormat()));
                 }
             }
         }

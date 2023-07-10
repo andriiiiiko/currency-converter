@@ -11,6 +11,9 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.List;
 
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.getFormat;
+import static com.godeveloper.currencyconverter.service.utilits.commands.BotCommands.setNumberFormat;
+
 public class CurrencyServiceMonoBank {
 
     private static final String BASE_URL = "https://api.monobank.ua/bank/currency";
@@ -60,9 +63,9 @@ public class CurrencyServiceMonoBank {
                     result.append("Курс в Монобанк: ")
                             .append(currency)
                             .append("/UAH\nКупівля: ")
-                            .append(currencyModelMonoBank.getRateBuy())
+                            .append(setNumberFormat(currencyModelMonoBank.getRateBuy(), getFormat()))
                             .append("\nПродаж: ")
-                            .append(currencyModelMonoBank.getRateSell());
+                            .append(setNumberFormat(currencyModelMonoBank.getRateSell(), getFormat()));
                 }
             }
         }

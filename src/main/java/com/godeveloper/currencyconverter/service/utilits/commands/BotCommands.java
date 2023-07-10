@@ -6,10 +6,14 @@ import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBui
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class BotCommands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
+    private static String format = "#.##";
 
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -87,5 +91,19 @@ public class BotCommands {
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setFormat(String format) {
+        BotCommands.format = format;
+    }
+
+    public static String getFormat() {
+        return format;
+    }
+
+    public static String setNumberFormat(float number, String format){
+        DecimalFormat decimalFormat = new DecimalFormat(format);
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        return decimalFormat.format(number);
     }
 }
