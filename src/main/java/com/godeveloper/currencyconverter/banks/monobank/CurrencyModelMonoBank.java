@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class CurrencyModelMonoBank {
-    private final int currencyCodeA;
-    private final int currencyCodeB;
-    private final int date;
-    private final float rateBuy;
-    private final float rateCross;
-    private final float rateSell ;
+    private int currencyCodeA;
+    private int currencyCodeB;
+    private int date;
+    private float rateBuy;
+    private float rateCross;
+    private float rateSell ;
 }

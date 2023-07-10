@@ -22,4 +22,3 @@ public class Log {
                 "\nReply to using button: " + name + "\n");
     }
 }
-
