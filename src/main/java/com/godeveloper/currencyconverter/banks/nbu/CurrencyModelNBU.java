@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CurrencyModelNBU {
-    private final int r030;
-    private final String txt;
-    private final float rate;
-    private final String cc;
-    private final String exchangedate;
+    private int r030;
+    private String txt;
+    private float rate;
+    private String cc;
+    private String exchangedate;
 }
