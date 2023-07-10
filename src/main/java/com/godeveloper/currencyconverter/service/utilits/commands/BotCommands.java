@@ -3,7 +3,6 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.settings.Settings;
-import com.godeveloper.currencyconverter.service.utilits.settings.UserSettings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
@@ -11,7 +10,6 @@ public class BotCommands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
-    private UserSettings userSettings = new UserSettings();
 
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -73,8 +71,8 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
 
         Settings.getUserSettingsById(chatId).setCurrency("USD");
-        sendMessage.setText("Готово!");
 
+        sendMessage.setText("Ви обрали USD!");
         telegramBot.executeMessage(sendMessage);
     }
 
@@ -82,8 +80,8 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
 
         Settings.getUserSettingsById(chatId).setCurrency("EUR");
-        sendMessage.setText("Готово!");
 
+        sendMessage.setText("Ви обрали EUR!");
         telegramBot.executeMessage(sendMessage);
     }
 
@@ -92,7 +90,7 @@ public class BotCommands {
 
         Settings.getUserSettingsById(chatId).setBank("Моно");
 
-        sendMessage.setText("Готово!");
+        sendMessage.setText("Ви обрали Монобанк!");
         telegramBot.executeMessage(sendMessage);
     }
 
@@ -101,7 +99,7 @@ public class BotCommands {
 
         Settings.getUserSettingsById(chatId).setBank("Приват");
 
-        sendMessage.setText("Готово!");
+        sendMessage.setText("Ви обрали Приватбанк!");
         telegramBot.executeMessage(sendMessage);
     }
 
@@ -110,7 +108,7 @@ public class BotCommands {
 
         Settings.getUserSettingsById(chatId).setBank("НБУ");
 
-        sendMessage.setText("Готово!");
+        sendMessage.setText("Ви обрали НБУ");
         telegramBot.executeMessage(sendMessage);
     }
 
