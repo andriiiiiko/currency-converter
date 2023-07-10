@@ -9,7 +9,7 @@ public class BotCommandListMenu {
     public static List<BotCommand> getBotCommandList() {
         List<BotCommand> botCommandList = new ArrayList<>();
         botCommandList.add(new BotCommand("/start", "Запустити бота"));
-        botCommandList.add(new BotCommand("/info", "отримати інфо"));
+        botCommandList.add(new BotCommand("/info", "Отримати інфо"));
         botCommandList.add(new BotCommand("/setting", "Налаштуавння"));
         botCommandList.add(new BotCommand("/bank", "Налаштуавння банку"));
         botCommandList.add(new BotCommand("/currency", "Налаштуавння валюти"));
