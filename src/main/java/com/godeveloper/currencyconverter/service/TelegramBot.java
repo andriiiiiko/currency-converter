@@ -1,7 +1,6 @@
 package com.godeveloper.currencyconverter.service;
 
 import com.godeveloper.currencyconverter.config.BotConfig;
-import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.Log;
 import com.godeveloper.currencyconverter.service.utilits.ScheduledMessageSender;
 import com.godeveloper.currencyconverter.service.utilits.commands.BotCommandListMenu;
@@ -13,7 +12,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
@@ -26,9 +24,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig CONFIG;
     private BotCommands botCommands;
+    private ScheduledMessageSender scheduledMessageSender;
 
     public TelegramBot(BotConfig CONFIG) {
         this.CONFIG = CONFIG;
+        this.scheduledMessageSender = new ScheduledMessageSender(this);
 
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
@@ -49,10 +49,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         return CONFIG.getBotName();
     }
 
-    LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(
-            14, 16));
-
-     ScheduledMessageSender scheduledMessageSender = new ScheduledMessageSender(this);
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -68,7 +64,12 @@ public class TelegramBot extends TelegramLongPollingBot {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
 
-            scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
+            if (callbackData.equals("ВИКЛЮЧИТИ СПОВІЩЕННЯ")) {
+                LocalDateTime scheduledTime = LocalDateTime.now().plusSeconds(5);
+                scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
+
+                System.out.println("/schedule");
+            }
 
             processCallbackQuery(callbackData, chatIdBackQuery);
         }

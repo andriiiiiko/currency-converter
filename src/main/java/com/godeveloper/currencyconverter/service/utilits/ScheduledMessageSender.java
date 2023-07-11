@@ -12,38 +12,47 @@ import java.util.TimerTask;
 
 public class ScheduledMessageSender {
 
+    TelegramBot telegramBot;
     private Map<Long, Boolean> messageSentMap = new HashMap<>();
-    BotCommands botCommandsHandler;
 
     public ScheduledMessageSender(TelegramBot telegramBot) {
-        botCommandsHandler = new BotCommands(telegramBot);
+        this.telegramBot = telegramBot;
+        BotCommands botCommandsHandler = new BotCommands(telegramBot);
+
     }
 
-    public void scheduleMessage(long chatId,  LocalDateTime scheduledTime) {
+    public void scheduleMessage(long chatId, LocalDateTime scheduledTime) {
+        messageSentMap.put(chatId, false);
 
+        LocalDateTime currentTime = LocalDateTime.now();
+        long delayMillis = calculateDelayMillis(currentTime, scheduledTime);
+
+        if (delayMillis < 0) {
+            delayMillis = 0;
+        }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sendMessage(chatId);
+            }
+        }, delayMillis);
     }
 
     private long calculateDelayMillis(LocalDateTime currentTime, LocalDateTime scheduledTime) {
         return java.time.Duration.between(currentTime, scheduledTime).toMillis();
     }
 
-    private void sendMessage(long chatId,  LocalDateTime scheduledTime) {
-        if (messageSentMap.containsKey(chatId) && messageSentMap.get(chatId)) {
+    private void sendMessage(long chatId) {
+        if (!messageSentMap.containsKey(chatId) || !messageSentMap.get(chatId)) {
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("Test noty");
 
-            LocalDateTime currentTime = LocalDateTime.now();
-            long delayMillis = calculateDelayMillis(currentTime, scheduledTime);
+            telegramBot.executeMessage(sendMessage);
 
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    SendMessage sendMessage = new SendMessage();
-                    sendMessage.setChatId(chatId);
-                    sendMessage.setText("test");
-
-                    System.out.println("plan");
-                }
-            }, delayMillis);
+            messageSentMap.put(chatId, true);
         }
     }
 }
