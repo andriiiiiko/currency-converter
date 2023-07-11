@@ -13,6 +13,7 @@ public class UserSettings {
     public UserSettings() {
         this.currency = "USD";
         this.bank = "Приват";
+        this.time = "Виключити сповіщення";
         this.number = "2";
     }
 }
