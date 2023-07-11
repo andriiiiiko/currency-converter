@@ -23,13 +23,14 @@ import java.util.*;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig CONFIG;
-    private BotCommands botCommands;
-    private ScheduledMessageSender scheduledMessageSender;
+    private final BotCommands BOTCOMMANDS;
+    private final ScheduledMessageSender SCHEDULEMWSSAGESENDER;
 
     public TelegramBot(BotConfig CONFIG) {
+
         this.CONFIG = CONFIG;
-        this.scheduledMessageSender = new ScheduledMessageSender(this);
-        this.botCommands = new BotCommands(this);
+        this.SCHEDULEMWSSAGESENDER = new ScheduledMessageSender(this);
+        this.BOTCOMMANDS = new BotCommands(this);
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
@@ -70,16 +71,16 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void processMessage(String messageText, String username, long chatId) {
         switch (messageText) {
-            case "/start" -> botCommands.start(chatId);
+            case "/start" -> BOTCOMMANDS.start(chatId);
             case "/info" -> {
-                botCommands.infoMessage(chatId, "USD");
-                botCommands.infoMessage(chatId, "EUR");
+                BOTCOMMANDS.infoMessage(chatId, "USD");
+                BOTCOMMANDS.infoMessage(chatId, "EUR");
             }
-            case "/setting" -> botCommands.settingsMessage(chatId);
-            case "/bank" -> botCommands.bankSettings(chatId);
-            case "/currency" -> botCommands.currencySettings(chatId);
-            case "/time" -> botCommands.timeSettings(chatId);
-            case "/number" -> botCommands.numberSettings(chatId);
+            case "/setting" -> BOTCOMMANDS.settingsMessage(chatId);
+            case "/bank" -> BOTCOMMANDS.bankSettings(chatId);
+            case "/currency" -> BOTCOMMANDS.currencySettings(chatId);
+            case "/time" -> BOTCOMMANDS.timeSettings(chatId);
+            case "/number" -> BOTCOMMANDS.numberSettings(chatId);
         }
 
         Log.Info(username, messageText);
@@ -88,15 +89,18 @@ public class TelegramBot extends TelegramLongPollingBot {
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
         switch (callbackData) {
             case "ОТРИМАТИ ІНФО" -> {
-                botCommands.infoMessage(chatIdBackQuery, "USD");
-                botCommands.infoMessage(chatIdBackQuery, "EUR");
+                BOTCOMMANDS.infoMessage(chatIdBackQuery, "USD");
+                BOTCOMMANDS.infoMessage(chatIdBackQuery, "EUR");
             }
-            case "НАЛАШТУВАННЯ" -> botCommands.settingsMessage(chatIdBackQuery);
-            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> botCommands.numberSettings(chatIdBackQuery);
-            case "ВАЛЮТА" -> botCommands.currencySettings(chatIdBackQuery);
-            case "БАНК" -> botCommands.bankSettings(chatIdBackQuery);
-            case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
-            case "ВИКЛЮЧИТИ СПОВІЩЕННЯ" -> notificationHandler(chatIdBackQuery, 16, 48);
+            case "НАЛАШТУВАННЯ" -> BOTCOMMANDS.settingsMessage(chatIdBackQuery);
+            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> BOTCOMMANDS.numberSettings(chatIdBackQuery);
+            case "ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
+            case "БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
+            case "ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
+            case "ВИКЛЮЧИТИ СПОВІЩЕННЯ" -> {
+                notificationHandler(chatIdBackQuery, 17, 4);
+                notificationHandler(chatIdBackQuery, 17, 5);
+            }
             case "09:00" -> notificationHandler(chatIdBackQuery, 9, 0);
             case "10:00" -> notificationHandler(chatIdBackQuery, 10, 0);
             case "11:00" -> notificationHandler(chatIdBackQuery, 11, 0);
@@ -108,7 +112,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void notificationHandler(long chatIdBackQuery, int hh, int mm) {
         LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hh, mm));
-        scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
+        SCHEDULEMWSSAGESENDER.scheduleMessage(chatIdBackQuery, scheduledTime);
 
         System.out.println("/schedule");
     }
