@@ -31,7 +31,7 @@ public class BotCommands {
 
     public void infoMessage(long chatId) {
         SEND_MESSAGE.setChatId(chatId);
-        SEND_MESSAGE.setText(UserServices.getCurrencyInformationFromSelectedBank(chatId));
+        SEND_MESSAGE.setText(UserServices.toNumberFormat(chatId));
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
@@ -60,6 +60,21 @@ public class BotCommands {
         SEND_MESSAGE.setReplyMarkup(markup);
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
+    }
+
+    public void setTwoNumbers(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("2");
+    }
+
+    public void setThreeNumbers(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("3");
+    }
+
+    public void setFourNumbers(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("4");
     }
 
     public void currencySettings(long chatId) {
