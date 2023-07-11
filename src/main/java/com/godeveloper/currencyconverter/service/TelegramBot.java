@@ -29,7 +29,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public TelegramBot(BotConfig CONFIG) {
         this.CONFIG = CONFIG;
         this.scheduledMessageSender = new ScheduledMessageSender(this);
-
+        this.botCommands = new BotCommands(this);
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
@@ -64,20 +64,11 @@ public class TelegramBot extends TelegramLongPollingBot {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
 
-            if (callbackData.equals("ВИКЛЮЧИТИ СПОВІЩЕННЯ")) {
-                LocalDateTime scheduledTime = LocalDateTime.now().plusSeconds(5);
-                scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
-
-                System.out.println("/schedule");
-            }
-
             processCallbackQuery(callbackData, chatIdBackQuery);
         }
     }
 
     private void processMessage(String messageText, String username, long chatId) {
-        botCommands = new BotCommands(new TelegramBot(CONFIG));
-
         switch (messageText) {
             case "/start" -> botCommands.start(chatId);
             case "/info" -> {
@@ -95,8 +86,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
-        botCommands = new BotCommands(new TelegramBot(CONFIG));
-
         switch (callbackData) {
             case "ОТРИМАТИ ІНФО" -> {
                 botCommands.infoMessage(chatIdBackQuery, "USD");
@@ -107,9 +96,21 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "ВАЛЮТА" -> botCommands.currencySettings(chatIdBackQuery);
             case "БАНК" -> botCommands.bankSettings(chatIdBackQuery);
             case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
+            case "ВИКЛЮЧИТИ СПОВІЩЕННЯ" -> notificationHandler(chatIdBackQuery, 16, 48);
+            case "09:00" -> notificationHandler(chatIdBackQuery, 9, 0);
+            case "10:00" -> notificationHandler(chatIdBackQuery, 10, 0);
+            case "11:00" -> notificationHandler(chatIdBackQuery, 11, 0);
+            case "12:00" -> notificationHandler(chatIdBackQuery, 12, 0);
         }
 
         Log.button(callbackData);
+    }
+
+    private void notificationHandler(long chatIdBackQuery, int hh, int mm) {
+        LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hh, mm));
+        scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
+
+        System.out.println("/schedule");
     }
 
     public void executeMessage(SendMessage message) {
