@@ -24,11 +24,11 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final BotConfig config;
+    private final BotConfig CONFIG;
     private BotCommands botCommands;
 
-    public TelegramBot(BotConfig config) {
-        this.config = config;
+    public TelegramBot(BotConfig CONFIG) {
+        this.CONFIG = CONFIG;
 
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
@@ -41,26 +41,25 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return config.getBotToken();
+        return CONFIG.getBotToken();
     }
 
     @Override
     public String getBotUsername() {
-        return config.getBotName();
+        return CONFIG.getBotName();
     }
 
-    LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 44));
+    LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(
+            14, 16));
+
+     ScheduledMessageSender scheduledMessageSender = new ScheduledMessageSender(this);
     @Override
     public void onUpdateReceived(Update update) {
-
-
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             String username = update.getMessage().getChat().getUserName();
             long chatId = update.getMessage().getChatId();
-
-            scheduleMessage(chatId, scheduledTime);
 
             processMessage(messageText, username, chatId);
         }
@@ -69,12 +68,14 @@ public class TelegramBot extends TelegramLongPollingBot {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
 
+            scheduledMessageSender.scheduleMessage(chatIdBackQuery, scheduledTime);
+
             processCallbackQuery(callbackData, chatIdBackQuery);
         }
     }
 
     private void processMessage(String messageText, String username, long chatId) {
-        botCommands = new BotCommands(new TelegramBot(config));
+        botCommands = new BotCommands(new TelegramBot(CONFIG));
 
         switch (messageText) {
             case "/start" -> botCommands.start(chatId);
@@ -93,7 +94,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
-        botCommands = new BotCommands(new TelegramBot(config));
+        botCommands = new BotCommands(new TelegramBot(CONFIG));
 
         switch (callbackData) {
             case "ОТРИМАТИ ІНФО" -> {
@@ -116,40 +117,5 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             Log.Error(e);
         }
-    }
-
-    public void scheduleMessage(long chatId,  LocalDateTime scheduledTime) {
-        LocalDateTime currentTime = LocalDateTime.now();
-        long delayMillis = calculateDelayMillis(currentTime, scheduledTime);
-
-        if (delayMillis < 0) {
-            delayMillis = 0;
-        }
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-            }
-        }, delayMillis);
-    }
-
-    private long calculateDelayMillis(LocalDateTime currentTime, LocalDateTime scheduledTime) {
-        return java.time.Duration.between(currentTime, scheduledTime).toMillis();
-    }
-
-    private void sendMessage(long chatId) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть банк");
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"НБУ", "Приват", "Моно"});
-        sendMessage.setReplyMarkup(markup);
-
-
-        System.out.println("plan");
-        executeMessage(sendMessage);
     }
 }
