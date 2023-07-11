@@ -33,6 +33,10 @@ public class BotCommands {
         SEND_MESSAGE.setChatId(chatId);
         SEND_MESSAGE.setText(UserServices.toNumberFormat(chatId));
 
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+                new String[]{"Отримати інфо", "Налаштування"});
+        SEND_MESSAGE.setReplyMarkup(markup);
+
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
