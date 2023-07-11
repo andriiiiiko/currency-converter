@@ -77,6 +77,7 @@ public class UserServices {
             case "3" -> result = "#0.000";
             case "4" -> result = "#0.0000";
         }
+
         return result;
     }
 }
