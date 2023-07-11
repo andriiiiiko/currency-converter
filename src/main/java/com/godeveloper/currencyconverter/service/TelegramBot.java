@@ -17,12 +17,12 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final BotConfig config;
-    private BotCommands botCommands;
+    private final BotConfig CONFIG;
+    private final BotCommands BOTCOMMANDS;
 
-    public TelegramBot(BotConfig config) {
-        this.config = config;
-
+    public TelegramBot(BotConfig CONFIG) {
+        this.CONFIG = CONFIG;
+        this.BOTCOMMANDS = new BotCommands(this);
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
@@ -34,12 +34,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return config.getBotToken();
+        return CONFIG.getBotToken();
     }
 
     @Override
     public String getBotUsername() {
-        return config.getBotName();
+        return CONFIG.getBotName();
     }
 
     @Override
@@ -62,36 +62,32 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void processMessage(String messageText, String username, long chatId) {
-        botCommands = new BotCommands(new TelegramBot(config));
-
         switch (messageText) {
-            case "/start" -> botCommands.start(chatId);
-            case "/info" -> botCommands.infoMessage(chatId);
-            case "/setting" -> botCommands.settingsMessage(chatId);
-            case "/bank" -> botCommands.bankSettings(chatId);
-            case "/currency" -> botCommands.currencySettings(chatId);
-            case "/time" -> botCommands.timeSettings(chatId);
-            case "/number" -> botCommands.numberSettings(chatId);
+            case "/start" -> BOTCOMMANDS.start(chatId);
+            case "/info" -> BOTCOMMANDS.infoMessage(chatId);
+            case "/setting" -> BOTCOMMANDS.settingsMessage(chatId);
+            case "/bank" -> BOTCOMMANDS.bankSettings(chatId);
+            case "/currency" -> BOTCOMMANDS.currencySettings(chatId);
+            case "/time" -> BOTCOMMANDS.timeSettings(chatId);
+            case "/number" -> BOTCOMMANDS.numberSettings(chatId);
         }
 
         Log.Info(username, messageText);
     }
 
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
-        botCommands = new BotCommands(new TelegramBot(config));
-
         switch (callbackData) {
-            case "ОТРИМАТИ ІНФО" -> botCommands.infoMessage(chatIdBackQuery);
-            case "НАЛАШТУВАННЯ" -> botCommands.settingsMessage(chatIdBackQuery);
-            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> botCommands.numberSettings(chatIdBackQuery);
-            case "ВАЛЮТА" -> botCommands.currencySettings(chatIdBackQuery);
-            case "БАНК" -> botCommands.bankSettings(chatIdBackQuery);
-            case "ЧАС СПОВІЩЕНЬ" -> botCommands.timeSettings(chatIdBackQuery);
-            case "ПРИВАТ" -> botCommands.setPrivat(chatIdBackQuery);
-            case "МОНО" -> botCommands.setMono(chatIdBackQuery);
-            case "НБУ" -> botCommands.setNBU(chatIdBackQuery);
-            case "USD" -> botCommands.setUSD(chatIdBackQuery);
-            case "EUR" -> botCommands.setEUR(chatIdBackQuery);
+            case "ОТРИМАТИ ІНФО" -> BOTCOMMANDS.infoMessage(chatIdBackQuery);
+            case "НАЛАШТУВАННЯ" -> BOTCOMMANDS.settingsMessage(chatIdBackQuery);
+            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> BOTCOMMANDS.numberSettings(chatIdBackQuery);
+            case "ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
+            case "БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
+            case "ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
+            case "ПРИВАТ" -> BOTCOMMANDS.setPrivat(chatIdBackQuery);
+            case "МОНО" -> BOTCOMMANDS.setMono(chatIdBackQuery);
+            case "НБУ" -> BOTCOMMANDS.setNBU(chatIdBackQuery);
+            case "USD" -> BOTCOMMANDS.setUSD(chatIdBackQuery);
+            case "EUR" -> BOTCOMMANDS.setEUR(chatIdBackQuery);
         }
 
         Log.button(callbackData);

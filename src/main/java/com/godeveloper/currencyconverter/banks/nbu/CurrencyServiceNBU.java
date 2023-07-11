@@ -43,12 +43,10 @@ public class CurrencyServiceNBU {
         if (currencyList != null) {
             for (CurrencyModelNBU currencyModelNBU : currencyList) {
                 if (currencyModelNBU.getCc().equals(currency)) {
-                    result.append("Курс в NBU: ")
-                            .append(currency)
-                            .append("/UAN\n")
-                            .append("Купівля: ")
-                            .append(currencyModelNBU.getRate())
-                            .append("\nПродаж: ")
+                    result.append("Офіційний курс: ")
+                            .append(currencyModelNBU.getCc())
+                            .append("/UAH")
+                            .append("\nКурс: ")
                             .append(currencyModelNBU.getRate());
                 }
             }

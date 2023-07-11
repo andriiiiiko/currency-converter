@@ -10,46 +10,46 @@ import static com.godeveloper.currencyconverter.service.utilits.ui.UserServices.
 
 public class BotCommands {
 
-    private final SendMessage sendMessage;
-    private final TelegramBot telegramBot;
+    private final SendMessage SEND_MESSAGE;
+    private final TelegramBot TELEGRAM_BOT;
 
-    public BotCommands(TelegramBot telegramBot) {
-        this.telegramBot = telegramBot;
-        this.sendMessage = new SendMessage();
+    public BotCommands(TelegramBot TELEGRAM_BOT) {
+        this.TELEGRAM_BOT = TELEGRAM_BOT;
+        this.SEND_MESSAGE = new SendMessage();
     }
 
     public void start(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Отримати інфо", "Налаштування"});
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void infoMessage(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(UserServices.getCurrencyInformationFromSelectedBank(chatId));
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText(UserServices.getCurrencyInformationFromSelectedBank(chatId));
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void settingsMessage(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Налаштування");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Налаштування");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"Банк", "Валюта", "Час сповіщень", "Кількість знаків після коми"});
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void numberSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть кількість знаків після коми");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Виберіть кількість знаків після коми");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
@@ -57,38 +57,38 @@ public class BotCommands {
                         getUserSettingsById(chatId).getNumber().equals("3") ? "✅ 3" : "3",
                         getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4"
                 });
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void currencySettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть валюту");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Виберіть валюту");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
                         getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR"
                 });
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void setUSD(long chatId) {
-        sendMessage.setChatId(chatId);
+        SEND_MESSAGE.setChatId(chatId);
         getUserSettingsById(chatId).setCurrency("USD");
     }
 
     public void setEUR(long chatId) {
-        sendMessage.setChatId(chatId);
+        SEND_MESSAGE.setChatId(chatId);
         getUserSettingsById(chatId).setCurrency("EUR");
     }
 
     public void bankSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть банк");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Виберіть банк");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
@@ -96,29 +96,29 @@ public class BotCommands {
                         getUserSettingsById(chatId).getBank().equals("Приват") ? "✅ Приват" : "Приват",
                         getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно"
                 });
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 
     public void setMono(long chatId) {
-        sendMessage.setChatId(chatId);
+        SEND_MESSAGE.setChatId(chatId);
         getUserSettingsById(chatId).setBank("Моно");
     }
 
     public void setPrivat(long chatId) {
-        sendMessage.setChatId(chatId);
+        SEND_MESSAGE.setChatId(chatId);
         getUserSettingsById(chatId).setBank("Приват");
     }
 
     public void setNBU(long chatId) {
-        sendMessage.setChatId(chatId);
+        SEND_MESSAGE.setChatId(chatId);
         getUserSettingsById(chatId).setBank("НБУ");
     }
 
     public void timeSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть час сповіщення");
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Виберіть час сповіщення");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
@@ -135,8 +135,8 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("ВИКЛЮЧИТИ СПОВІЩЕННЯ") ?
                                 "✅ Виключити сповіщення" : "Виключити сповіщення",
                 });
-        sendMessage.setReplyMarkup(markup);
+        SEND_MESSAGE.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
 }
