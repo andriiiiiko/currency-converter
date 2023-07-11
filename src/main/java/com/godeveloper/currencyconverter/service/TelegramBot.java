@@ -22,6 +22,7 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
+    private Map<Long, Boolean> messageSentMap = new HashMap<>();
     private final BotConfig CONFIG;
     private final BotCommands BOTCOMMANDS;
     private final ScheduledMessageSender SCHEDULEMWSSAGESENDER;
@@ -97,10 +98,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
             case "БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
             case "ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
-            case "ВИКЛЮЧИТИ СПОВІЩЕННЯ" -> {
-                notificationHandler(chatIdBackQuery, 17, 4);
-                notificationHandler(chatIdBackQuery, 17, 5);
-            }
+            case "ВИКЛЮЧИТИ СПОВІЩЕННЯ" -> notificationHandler(chatIdBackQuery, 20, 11);
             case "09:00" -> notificationHandler(chatIdBackQuery, 9, 0);
             case "10:00" -> notificationHandler(chatIdBackQuery, 10, 0);
             case "11:00" -> notificationHandler(chatIdBackQuery, 11, 0);
@@ -112,6 +110,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void notificationHandler(long chatIdBackQuery, int hh, int mm) {
         LocalDateTime scheduledTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hh, mm));
+
         SCHEDULEMWSSAGESENDER.scheduleMessage(chatIdBackQuery, scheduledTime);
 
         System.out.println("/schedule");
