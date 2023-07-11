@@ -132,8 +132,8 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("16:00") ? "✅ 16:00" : "16:00",
                         getUserSettingsById(chatId).getTime().equals("17:00") ? "✅ 17:00" : "17:00",
                         getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
-                        getUserSettingsById(chatId).getTime().equals("ВИКЛЮЧИТИ СПОВІЩЕННЯ") ?
-                                "✅ Виключити сповіщення" : "Виключити сповіщення",
+                        getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
+                                "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
