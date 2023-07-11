@@ -49,21 +49,9 @@ public class UserServices {
         return result;
     }
 
-    public static String getFormat(long chatId){
-        String format = "#0.00";
-        String countNumbers = getUserSettingsById(chatId).getNumber();
-
-        switch (countNumbers){
-            case "2" -> format = "#0.00";
-            case "3" -> format = "#0.000";
-            case "4" -> format = "#0.0000";
-        }
-        return setNumberFormat(chatId, format);
-    }
-
-    public static String setNumberFormat(long chatId, String format){
-
+    public static String toNumberFormat(long chatId){
         String response = getCurrencyInformationFromSelectedBank(chatId);
+        String format = getFormat(chatId);
 
         DecimalFormat decimalFormat = new DecimalFormat(format);
         Pattern pattern = Pattern.compile("\\d+\\.\\d+");
@@ -78,5 +66,17 @@ public class UserServices {
         matcher.appendTail(output);
 
         return output.toString();
+    }
+
+    private static String getFormat(long chatId){
+        String result = "#0.00";
+        String countNumbers = getUserSettingsById(chatId).getNumber();
+
+        switch (countNumbers){
+            case "2" -> result = "#0.00";
+            case "3" -> result = "#0.000";
+            case "4" -> result = "#0.0000";
+        }
+        return result;
     }
 }

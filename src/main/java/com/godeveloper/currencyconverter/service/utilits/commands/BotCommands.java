@@ -31,7 +31,7 @@ public class BotCommands {
 
     public void infoMessage(long chatId) {
         SEND_MESSAGE.setChatId(chatId);
-        SEND_MESSAGE.setText(UserServices.getFormat(chatId));
+        SEND_MESSAGE.setText(UserServices.toNumberFormat(chatId));
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
     }
