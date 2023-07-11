@@ -92,6 +92,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "НБУ" -> botCommands.setNBU(chatIdBackQuery);
             case "USD" -> botCommands.setUSD(chatIdBackQuery);
             case "EUR" -> botCommands.setEUR(chatIdBackQuery);
+            case "2" -> botCommands.setTwoNumbers(chatIdBackQuery);
+            case "3" -> botCommands.setThreeNumbers(chatIdBackQuery);
+            case "4" -> botCommands.setFourNumbers(chatIdBackQuery);
         }
 
         Log.button(callbackData);

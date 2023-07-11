@@ -31,7 +31,7 @@ public class BotCommands {
 
     public void infoMessage(long chatId) {
         sendMessage.setChatId(chatId);
-        sendMessage.setText(Settings.getCurrencyInformationFromSelectedBank(chatId));
+        sendMessage.setText(Settings.toNumberFormat(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -59,6 +59,30 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setTwoNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("2");
+
+        sendMessage.setText("Готово!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setThreeNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("3");
+
+        sendMessage.setText("Готово!");
+        telegramBot.executeMessage(sendMessage);
+    }
+
+    public void setFourNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("4");
+
+        sendMessage.setText("Готово!");
         telegramBot.executeMessage(sendMessage);
     }
 
