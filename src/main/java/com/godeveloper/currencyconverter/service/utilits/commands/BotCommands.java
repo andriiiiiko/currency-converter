@@ -2,11 +2,11 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
-import com.godeveloper.currencyconverter.service.utilits.settings.Settings;
+import com.godeveloper.currencyconverter.service.utilits.ui.UserServices;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-import static com.godeveloper.currencyconverter.service.utilits.settings.Settings.getUserSettingsById;
+import static com.godeveloper.currencyconverter.service.utilits.ui.UserServices.getUserSettingsById;
 
 public class BotCommands {
 
@@ -31,7 +31,7 @@ public class BotCommands {
 
     public void infoMessage(long chatId) {
         sendMessage.setChatId(chatId);
-        sendMessage.setText(Settings.getCurrencyInformationFromSelectedBank(chatId));
+        sendMessage.setText(UserServices.getCurrencyInformationFromSelectedBank(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -132,7 +132,7 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("16:00") ? "✅ 16:00" : "16:00",
                         getUserSettingsById(chatId).getTime().equals("17:00") ? "✅ 17:00" : "17:00",
                         getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
-                        getUserSettingsById(chatId).getTime().equals("Виключити сповіщення") ?
+                        getUserSettingsById(chatId).getTime().equals("ВИКЛЮЧИТИ СПОВІЩЕННЯ") ?
                                 "✅ Виключити сповіщення" : "Виключити сповіщення",
                 });
         sendMessage.setReplyMarkup(markup);

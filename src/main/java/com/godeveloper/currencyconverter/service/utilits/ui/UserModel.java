@@ -1,16 +1,16 @@
-package com.godeveloper.currencyconverter.service.utilits.settings;
+package com.godeveloper.currencyconverter.service.utilits.ui;
 
 import lombok.Data;
 
 @Data
-public class UserSettings {
+public class UserModel {
 
     private String bank;
     private String currency;
     private String time;
     private String number;
 
-    public UserSettings() {
+    public UserModel() {
         this.currency = "USD";
         this.bank = "Приват";
         this.time = "Виключити сповіщення";

@@ -1,4 +1,4 @@
-package com.godeveloper.currencyconverter.service.utilits.settings;
+package com.godeveloper.currencyconverter.service.utilits.ui;
 
 import com.godeveloper.currencyconverter.banks.monobank.CurrencyServiceMonoBank;
 import com.godeveloper.currencyconverter.banks.nbu.CurrencyServiceNBU;
@@ -7,11 +7,11 @@ import com.godeveloper.currencyconverter.banks.privatbank.CurrencyServicePrivatB
 import java.util.HashMap;
 import java.util.Map;
 
-public class Settings {
+public class UserServices {
 
-    private static final Map<Long, UserSettings> USERS_SETTINGS = new HashMap<>();
+    private static final Map<Long, UserModel> USERS_SETTINGS = new HashMap<>();
 
-    public static UserSettings getUserSettingsById(long chatId) {
+    public static UserModel getUserSettingsById(long chatId) {
         return USERS_SETTINGS.get(chatId);
     }
 
@@ -20,8 +20,8 @@ public class Settings {
     }
 
     public static void createUserSettings(long chatId) {
-        UserSettings userSettings = new UserSettings();
-        USERS_SETTINGS.put(chatId, userSettings);
+        UserModel userModel = new UserModel();
+        USERS_SETTINGS.put(chatId, userModel);
     }
 
     public static String checkSelectedBank(long chatId) {
