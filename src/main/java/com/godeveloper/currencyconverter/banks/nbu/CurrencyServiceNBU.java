@@ -52,7 +52,6 @@ public class CurrencyServiceNBU {
             }
         }
 
-
         return result.toString();
     }
 }
