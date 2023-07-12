@@ -101,7 +101,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "16:00" -> botcommands.setTime16(chatIdBackQuery);
             case "17:00" -> botcommands.setTime17(chatIdBackQuery);
             case "18:00" -> botcommands.setTime18(chatIdBackQuery);
-            case "19:0" -> botcommands.setTimeOff(chatIdBackQuery);
+            case "ВИМКНУТИ СПОВІЩЕННЯ" -> botcommands.setTimeOff(chatIdBackQuery);
             case "\uD83C\uDFE0 НА ГОЛОВНУ" -> botcommands.home(chatIdBackQuery);
         }
 
