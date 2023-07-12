@@ -18,6 +18,10 @@ public class BotCommands {
         this.sendMessage = new SendMessage();
     }
 
+    private void sendMessage(long chatId, String answer){
+
+    }
+
     public void start(long chatId) {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
