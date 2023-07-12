@@ -23,7 +23,18 @@ public class BotCommands {
         SEND_MESSAGE.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"Отримати інфо", "Налаштування"});
+                new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
+        SEND_MESSAGE.setReplyMarkup(markup);
+
+        TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
+    }
+
+    public void home(long chatId) {
+        SEND_MESSAGE.setChatId(chatId);
+        SEND_MESSAGE.setText("Ви повернулись на головне меню");
+
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
+                new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
         SEND_MESSAGE.setReplyMarkup(markup);
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
@@ -34,7 +45,7 @@ public class BotCommands {
         SEND_MESSAGE.setText(UserServices.toNumberFormat(chatId));
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"Отримати інфо", "Налаштування"});
+                new String[]{"⚙ Налаштування"});
         SEND_MESSAGE.setReplyMarkup(markup);
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
@@ -45,7 +56,10 @@ public class BotCommands {
         SEND_MESSAGE.setText("Налаштування");
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"Банк", "Валюта", "Час сповіщень", "Кількість знаків після коми"});
+                new String[]{
+                        "\uD83C\uDFE6 Банк", "\uD83D\uDCB5 Валюта", "\uD83D\uDD52 Час сповіщень",
+                        "\uD83D\uDD22 Кількість знаків після коми", "\uD83C\uDFE0 На головну"
+                });
         SEND_MESSAGE.setReplyMarkup(markup);
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
@@ -59,7 +73,8 @@ public class BotCommands {
                 new String[]{
                         getUserSettingsById(chatId).getNumber().equals("2") ? "✅ 2" : "2",
                         getUserSettingsById(chatId).getNumber().equals("3") ? "✅ 3" : "3",
-                        getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4"
+                        getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4",
+                        "\uD83D\uDD19 Назад"
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
@@ -88,7 +103,8 @@ public class BotCommands {
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
-                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR"
+                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR",
+                        "\uD83D\uDD19 Назад"
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
@@ -113,7 +129,8 @@ public class BotCommands {
                 new String[]{
                         getUserSettingsById(chatId).getBank().equals("НБУ") ? "✅ НБУ" : "НБУ",
                         getUserSettingsById(chatId).getBank().equals("Приват") ? "✅ Приват" : "Приват",
-                        getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно"
+                        getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно",
+                        "\uD83D\uDD19 Назад"
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
@@ -153,6 +170,7 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
                         getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
                                 "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
+                        "\uD83D\uDD19 Назад"
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
