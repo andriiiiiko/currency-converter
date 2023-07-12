@@ -21,6 +21,7 @@ public class BotCommands {
     public void start(long chatId) {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
+        UserServices.createUserSettings(chatId);
 
         InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
