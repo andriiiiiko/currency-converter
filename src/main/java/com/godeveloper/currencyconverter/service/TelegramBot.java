@@ -91,6 +91,17 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "2" -> BOTCOMMANDS.setTwoNumbers(chatIdBackQuery);
             case "3" -> BOTCOMMANDS.setThreeNumbers(chatIdBackQuery);
             case "4" -> BOTCOMMANDS.setFourNumbers(chatIdBackQuery);
+            case "09:00" -> BOTCOMMANDS.setTime9(chatIdBackQuery);
+            case "10:00" -> BOTCOMMANDS.setTime10(chatIdBackQuery);
+            case "11:00" -> BOTCOMMANDS.setTime11(chatIdBackQuery);
+            case "12:00" -> BOTCOMMANDS.setTime12(chatIdBackQuery);
+            case "13:00" -> BOTCOMMANDS.setTime13(chatIdBackQuery);
+            case "14:00" -> BOTCOMMANDS.setTime14(chatIdBackQuery);
+            case "15:00" -> BOTCOMMANDS.setTime15(chatIdBackQuery);
+            case "16:00" -> BOTCOMMANDS.setTime16(chatIdBackQuery);
+            case "17:00" -> BOTCOMMANDS.setTime17(chatIdBackQuery);
+            case "18:00" -> BOTCOMMANDS.setTime18(chatIdBackQuery);
+            case "19:0" -> BOTCOMMANDS.setTimeOff(chatIdBackQuery);
             case "\uD83C\uDFE0 НА ГОЛОВНУ" -> BOTCOMMANDS.home(chatIdBackQuery);
         }
 

@@ -168,12 +168,67 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("16:00") ? "✅ 16:00" : "16:00",
                         getUserSettingsById(chatId).getTime().equals("17:00") ? "✅ 17:00" : "17:00",
                         getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
-                        getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
-                                "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
+                        getUserSettingsById(chatId).getTime().equals("ВИМКНУТИ СПОВІЩЕННЯ") ?
+                                "✅ ВИМКНУТИ СПОВІЩЕННЯ" : "ВИМКНУТИ СПОВІЩЕННЯ",
                         "\uD83D\uDD19 Назад"
                 });
         SEND_MESSAGE.setReplyMarkup(markup);
 
         TELEGRAM_BOT.executeMessage(SEND_MESSAGE);
+    }
+
+    public void setTime9(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("09:00");
+    }
+
+    public void setTime10(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("10:00");
+    }
+
+    public void setTime11(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("11:00");
+    }
+
+    public void setTime12(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("12:00");
+    }
+
+    public void setTime13(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("13:00");
+    }
+
+    public void setTime14(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("14:00");
+    }
+
+    public void setTime15(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("15:00");
+    }
+
+    public void setTime16(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("16:00");
+    }
+
+    public void setTime17(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("17:00");
+    }
+
+    public void setTime18(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("18:00");
+    }
+
+    public void setTimeOff(long chatId){
+        SEND_MESSAGE.setChatId(chatId);
+        getUserSettingsById(chatId).setTime("ВИМКНУТИ СПОВІЩЕННЯ");
     }
 }
