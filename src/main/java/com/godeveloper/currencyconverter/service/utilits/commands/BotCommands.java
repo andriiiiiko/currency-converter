@@ -63,21 +63,6 @@ public class BotCommands {
                 });
     }
 
-    public void setTwoNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("2");
-    }
-
-    public void setThreeNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("3");
-    }
-
-    public void setFourNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("4");
-    }
-
     public void currencySettings(long chatId) {
         sendMessage(chatId, "Виберіть валюту",
                 new String[]{
@@ -85,16 +70,6 @@ public class BotCommands {
                         getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR",
                         "\uD83D\uDD19 Назад"
                 });
-    }
-
-    public void setUSD(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setCurrency("USD");
-    }
-
-    public void setEUR(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setCurrency("EUR");
     }
 
     public void bankSettings(long chatId) {
@@ -105,21 +80,6 @@ public class BotCommands {
                         getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно",
                         "\uD83D\uDD19 Назад"
                 });
-    }
-
-    public void setMono(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("Моно");
-    }
-
-    public void setPrivat(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("Приват");
-    }
-
-    public void setNBU(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("НБУ");
     }
 
     public void timeSettings(long chatId) {
@@ -142,6 +102,46 @@ public class BotCommands {
                                 "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
                         "\uD83D\uDD19 Назад"
                 });
+    }
+
+    public void setTwoNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("2");
+    }
+
+    public void setThreeNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("3");
+    }
+
+    public void setFourNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("4");
+    }
+
+    public void setUSD(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setCurrency("USD");
+    }
+
+    public void setEUR(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setCurrency("EUR");
+    }
+
+    public void setMono(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Моно");
+    }
+
+    public void setPrivat(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Приват");
+    }
+
+    public void setNBU(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("НБУ");
     }
 
     public void setTime9(long chatId){
