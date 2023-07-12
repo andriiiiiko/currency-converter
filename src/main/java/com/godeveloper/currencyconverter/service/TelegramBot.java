@@ -77,12 +77,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
         switch (callbackData) {
-            case "ОТРИМАТИ ІНФО" -> BOTCOMMANDS.infoMessage(chatIdBackQuery);
-            case "НАЛАШТУВАННЯ" -> BOTCOMMANDS.settingsMessage(chatIdBackQuery);
-            case "КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> BOTCOMMANDS.numberSettings(chatIdBackQuery);
-            case "ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
-            case "БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
-            case "ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
+            case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> BOTCOMMANDS.infoMessage(chatIdBackQuery);
+            case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> BOTCOMMANDS.settingsMessage(chatIdBackQuery);
+            case "\uD83D\uDD22 КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> BOTCOMMANDS.numberSettings(chatIdBackQuery);
+            case "\uD83D\uDCB5 ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
+            case "\uD83C\uDFE6 БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
+            case "\uD83D\uDD52 ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
             case "ПРИВАТ" -> BOTCOMMANDS.setPrivat(chatIdBackQuery);
             case "МОНО" -> BOTCOMMANDS.setMono(chatIdBackQuery);
             case "НБУ" -> BOTCOMMANDS.setNBU(chatIdBackQuery);
@@ -91,6 +91,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "2" -> BOTCOMMANDS.setTwoNumbers(chatIdBackQuery);
             case "3" -> BOTCOMMANDS.setThreeNumbers(chatIdBackQuery);
             case "4" -> BOTCOMMANDS.setFourNumbers(chatIdBackQuery);
+            case "\uD83C\uDFE0 НА ГОЛОВНУ" -> BOTCOMMANDS.home(chatIdBackQuery);
         }
 
         Log.button(callbackData);
