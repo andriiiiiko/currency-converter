@@ -18,16 +18,6 @@ public class BotCommands {
         this.sendMessage = new SendMessage();
     }
 
-    private void sendMessage(long chatId, String answer, String[] nameButton){
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(answer);
-
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(nameButton);
-        sendMessage.setReplyMarkup(markup);
-
-        telegramBot.executeMessage(sendMessage);
-    }
-
     public void start(long chatId) {
         sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!",
                 new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
@@ -53,21 +43,21 @@ public class BotCommands {
                 });
     }
 
+    public void currencySettings(long chatId) {
+        sendMessage(chatId, "Виберіть валюту",
+                new String[]{
+                        getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
+                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR",
+                        "\uD83D\uDD19 Назад"
+                });
+    }
+
     public void numberSettings(long chatId) {
         sendMessage(chatId, "Виберіть кількість знаків після коми",
                 new String[]{
                         getUserSettingsById(chatId).getNumber().equals("2") ? "✅ 2" : "2",
                         getUserSettingsById(chatId).getNumber().equals("3") ? "✅ 3" : "3",
                         getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4",
-                        "\uD83D\uDD19 Назад"
-                });
-    }
-
-    public void currencySettings(long chatId) {
-        sendMessage(chatId, "Виберіть валюту",
-                new String[]{
-                        getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
-                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR",
                         "\uD83D\uDD19 Назад"
                 });
     }
@@ -83,9 +73,6 @@ public class BotCommands {
     }
 
     public void timeSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть час сповіщення");
-
         sendMessage(chatId, "Виберіть час сповіщення",
                 new String[]{
                         getUserSettingsById(chatId).getTime().equals("09:00") ? "✅ 09:00" : "09:00",
@@ -197,5 +184,15 @@ public class BotCommands {
     public void setTimeOff(long chatId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("Вимкнути сповіщення");
+    }
+
+    private void sendMessage(long chatId, String answer, String[] nameButton){
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(answer);
+
+        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(nameButton);
+        sendMessage.setReplyMarkup(markup);
+
+        telegramBot.executeMessage(sendMessage);
     }
 }
