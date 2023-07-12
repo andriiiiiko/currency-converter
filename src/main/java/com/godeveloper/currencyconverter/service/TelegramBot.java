@@ -17,12 +17,12 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private final BotConfig CONFIG;
-    private final BotCommands BOTCOMMANDS;
+    private final BotConfig config;
+    private final BotCommands botcommands;
 
-    public TelegramBot(BotConfig CONFIG) {
-        this.CONFIG = CONFIG;
-        this.BOTCOMMANDS = new BotCommands(this);
+    public TelegramBot(BotConfig config) {
+        this.config = config;
+        this.botcommands = new BotCommands(this);
         List<BotCommand> botCommandList = BotCommandListMenu.getBotCommandList();
 
         try {
@@ -34,12 +34,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return CONFIG.getBotToken();
+        return config.getBotToken();
     }
 
     @Override
     public String getBotUsername() {
-        return CONFIG.getBotName();
+        return config.getBotName();
     }
 
     @Override
@@ -63,13 +63,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void processMessage(String messageText, String username, long chatId) {
         switch (messageText) {
-            case "/start" -> BOTCOMMANDS.start(chatId);
-            case "/info" -> BOTCOMMANDS.infoMessage(chatId);
-            case "/setting" -> BOTCOMMANDS.settingsMessage(chatId);
-            case "/bank" -> BOTCOMMANDS.bankSettings(chatId);
-            case "/currency" -> BOTCOMMANDS.currencySettings(chatId);
-            case "/time" -> BOTCOMMANDS.timeSettings(chatId);
-            case "/number" -> BOTCOMMANDS.numberSettings(chatId);
+            case "/start" -> botcommands.start(chatId);
+            case "/info" -> botcommands.infoMessage(chatId);
+            case "/setting" -> botcommands.settingsMessage(chatId);
+            case "/bank" -> botcommands.bankSettings(chatId);
+            case "/currency" -> botcommands.currencySettings(chatId);
+            case "/time" -> botcommands.timeSettings(chatId);
+            case "/number" -> botcommands.numberSettings(chatId);
         }
 
         Log.Info(username, messageText);
@@ -77,32 +77,32 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
         switch (callbackData) {
-            case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> BOTCOMMANDS.infoMessage(chatIdBackQuery);
-            case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> BOTCOMMANDS.settingsMessage(chatIdBackQuery);
-            case "\uD83D\uDD22 КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> BOTCOMMANDS.numberSettings(chatIdBackQuery);
-            case "\uD83D\uDCB5 ВАЛЮТА" -> BOTCOMMANDS.currencySettings(chatIdBackQuery);
-            case "\uD83C\uDFE6 БАНК" -> BOTCOMMANDS.bankSettings(chatIdBackQuery);
-            case "\uD83D\uDD52 ЧАС СПОВІЩЕНЬ" -> BOTCOMMANDS.timeSettings(chatIdBackQuery);
-            case "ПРИВАТ" -> BOTCOMMANDS.setPrivat(chatIdBackQuery);
-            case "МОНО" -> BOTCOMMANDS.setMono(chatIdBackQuery);
-            case "НБУ" -> BOTCOMMANDS.setNBU(chatIdBackQuery);
-            case "USD" -> BOTCOMMANDS.setUSD(chatIdBackQuery);
-            case "EUR" -> BOTCOMMANDS.setEUR(chatIdBackQuery);
-            case "2" -> BOTCOMMANDS.setTwoNumbers(chatIdBackQuery);
-            case "3" -> BOTCOMMANDS.setThreeNumbers(chatIdBackQuery);
-            case "4" -> BOTCOMMANDS.setFourNumbers(chatIdBackQuery);
-            case "09:00" -> BOTCOMMANDS.setTime9(chatIdBackQuery);
-            case "10:00" -> BOTCOMMANDS.setTime10(chatIdBackQuery);
-            case "11:00" -> BOTCOMMANDS.setTime11(chatIdBackQuery);
-            case "12:00" -> BOTCOMMANDS.setTime12(chatIdBackQuery);
-            case "13:00" -> BOTCOMMANDS.setTime13(chatIdBackQuery);
-            case "14:00" -> BOTCOMMANDS.setTime14(chatIdBackQuery);
-            case "15:00" -> BOTCOMMANDS.setTime15(chatIdBackQuery);
-            case "16:00" -> BOTCOMMANDS.setTime16(chatIdBackQuery);
-            case "17:00" -> BOTCOMMANDS.setTime17(chatIdBackQuery);
-            case "18:00" -> BOTCOMMANDS.setTime18(chatIdBackQuery);
-            case "19:0" -> BOTCOMMANDS.setTimeOff(chatIdBackQuery);
-            case "\uD83C\uDFE0 НА ГОЛОВНУ" -> BOTCOMMANDS.home(chatIdBackQuery);
+            case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> botcommands.infoMessage(chatIdBackQuery);
+            case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> botcommands.settingsMessage(chatIdBackQuery);
+            case "\uD83D\uDD22 КІЛЬКІСТЬ ЗНАКІВ ПІСЛЯ КОМИ" -> botcommands.numberSettings(chatIdBackQuery);
+            case "\uD83D\uDCB5 ВАЛЮТА" -> botcommands.currencySettings(chatIdBackQuery);
+            case "\uD83C\uDFE6 БАНК" -> botcommands.bankSettings(chatIdBackQuery);
+            case "\uD83D\uDD52 ЧАС СПОВІЩЕНЬ" -> botcommands.timeSettings(chatIdBackQuery);
+            case "ПРИВАТ" -> botcommands.setPrivat(chatIdBackQuery);
+            case "МОНО" -> botcommands.setMono(chatIdBackQuery);
+            case "НБУ" -> botcommands.setNBU(chatIdBackQuery);
+            case "USD" -> botcommands.setUSD(chatIdBackQuery);
+            case "EUR" -> botcommands.setEUR(chatIdBackQuery);
+            case "2" -> botcommands.setTwoNumbers(chatIdBackQuery);
+            case "3" -> botcommands.setThreeNumbers(chatIdBackQuery);
+            case "4" -> botcommands.setFourNumbers(chatIdBackQuery);
+            case "09:00" -> botcommands.setTime9(chatIdBackQuery);
+            case "10:00" -> botcommands.setTime10(chatIdBackQuery);
+            case "11:00" -> botcommands.setTime11(chatIdBackQuery);
+            case "12:00" -> botcommands.setTime12(chatIdBackQuery);
+            case "13:00" -> botcommands.setTime13(chatIdBackQuery);
+            case "14:00" -> botcommands.setTime14(chatIdBackQuery);
+            case "15:00" -> botcommands.setTime15(chatIdBackQuery);
+            case "16:00" -> botcommands.setTime16(chatIdBackQuery);
+            case "17:00" -> botcommands.setTime17(chatIdBackQuery);
+            case "18:00" -> botcommands.setTime18(chatIdBackQuery);
+            case "19:0" -> botcommands.setTimeOff(chatIdBackQuery);
+            case "\uD83C\uDFE0 НА ГОЛОВНУ" -> botcommands.home(chatIdBackQuery);
         }
 
         Log.button(callbackData);
