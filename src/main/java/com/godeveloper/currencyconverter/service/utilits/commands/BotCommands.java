@@ -168,9 +168,12 @@ public class BotCommands {
                         getUserSettingsById(chatId).getTime().equals("16:00") ? "✅ 16:00" : "16:00",
                         getUserSettingsById(chatId).getTime().equals("17:00") ? "✅ 17:00" : "17:00",
                         getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
-                        getUserSettingsById(chatId).getTime().equals("ВИМКНУТИ СПОВІЩЕННЯ") ?
-                                "✅ ВИМКНУТИ СПОВІЩЕННЯ" : "ВИМКНУТИ СПОВІЩЕННЯ",
+                        getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
+                                "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
                         "\uD83D\uDD19 Назад"
+//                        getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
+//                                "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
+//                        "\uD83D\uDD19 Назад"
                 });
         sendMessage.setReplyMarkup(markup);
 
@@ -229,6 +232,6 @@ public class BotCommands {
 
     public void setTimeOff(long chatId){
         sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setTime("ВИМКНУТИ СПОВІЩЕННЯ");
+        getUserSettingsById(chatId).setTime("Вимкнути сповіщення");
     }
 }
