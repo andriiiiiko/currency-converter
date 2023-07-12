@@ -23,15 +23,13 @@ public class UserServices {
     }
 
     public static void createUserSettings(long chatId) {
-        UserModel userModel = new UserModel();
-        USERS_SETTINGS.put(chatId, userModel);
+        if (!isUserSettingsExists(chatId)) {
+            UserModel userModel = new UserModel();
+            USERS_SETTINGS.put(chatId, userModel);
+        }
     }
 
     public static String checkSelectedBank(long chatId) {
-        if (!isUserSettingsExists(chatId)) {
-            createUserSettings(chatId);
-        }
-
          return USERS_SETTINGS.get(chatId).getBank();
     }
 
