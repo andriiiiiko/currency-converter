@@ -27,5 +27,4 @@ public class EditMessage {
             Log.Error(e);
         }
     }
-
 }

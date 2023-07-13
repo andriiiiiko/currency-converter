@@ -21,5 +21,4 @@ public class MessageBuilder {
 
         telegramBot.executeMessage(sendMessage);
     }
-
 }
