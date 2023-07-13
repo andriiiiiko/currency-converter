@@ -7,7 +7,6 @@ import static com.godeveloper.currencyconverter.service.utilits.ui.UserServices.
 public class Buttons {
 
     public static InlineKeyboardMarkup time(long chatId) {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getTime().equals("09:00") ? "✅ 09:00" : "09:00",
@@ -27,7 +26,6 @@ public class Buttons {
     }
 
     public static InlineKeyboardMarkup bank(long chatId) {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getBank().equals("НБУ") ? "✅ НБУ" : "НБУ",
@@ -38,7 +36,6 @@ public class Buttons {
     }
 
     public static InlineKeyboardMarkup currency(long chatId) {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
@@ -48,7 +45,6 @@ public class Buttons {
     }
 
     public static InlineKeyboardMarkup number(long chatId) {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         getUserSettingsById(chatId).getNumber().equals("2") ? "✅ 2" : "2",
@@ -59,7 +55,6 @@ public class Buttons {
     }
 
     public static InlineKeyboardMarkup setting() {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{
                         "\uD83C\uDFE6 Банк", "\uD83D\uDCB5 Валюта", "\uD83D\uDD52 Час сповіщень",
@@ -68,13 +63,11 @@ public class Buttons {
     }
 
     public static InlineKeyboardMarkup info() {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"⚙ Налаштування"});
     }
 
     public static InlineKeyboardMarkup start() {
-
         return InlineKeyboardMarkupBuilder.buildMarkup(
                 new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
     }
