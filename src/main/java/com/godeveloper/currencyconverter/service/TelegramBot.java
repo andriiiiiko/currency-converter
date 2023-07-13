@@ -49,7 +49,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         String userName;
         String receivedMessage;
 
-
         if (update.hasMessage() && update.getMessage().hasText()) {
             chatId = update.getMessage().getChatId();
             userName = update.getMessage().getFrom().getFirstName();
