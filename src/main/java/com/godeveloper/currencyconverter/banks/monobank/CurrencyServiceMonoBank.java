@@ -39,6 +39,7 @@ public class CurrencyServiceMonoBank {
                 if (currencyList != null) {
                     lastCurrencyList = currencyList;
                     lastUpdateTime = currentTime;
+
                     return currencyList;
                 }
             }
