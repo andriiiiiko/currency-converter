@@ -15,6 +15,7 @@ public class BotCommandListMenu {
         botCommandList.add(new BotCommand("/currency", "Налаштування валюти"));
         botCommandList.add(new BotCommand("/time", "Налаштування сповіщення"));
         botCommandList.add(new BotCommand("/number", "Налаштування знаків"));
+
         return botCommandList;
     }
 }
