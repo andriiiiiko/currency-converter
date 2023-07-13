@@ -44,21 +44,27 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        long chatId;
+        long messageId;
+        String userName;
+        String receivedMessage;
+
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
-            String username = update.getMessage().getChat().getUserName();
-            long chatId = update.getMessage().getChatId();
+            chatId = update.getMessage().getChatId();
+            userName = update.getMessage().getFrom().getFirstName();
+            receivedMessage = update.getMessage().getText();
 
-            processMessage(messageText, username, chatId);
+            processMessage(receivedMessage, userName, chatId);
         }
 
         if (update.hasCallbackQuery()) {
-            String callbackData = update.getCallbackQuery().getData();
-            long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
-            long messageId = update.getCallbackQuery().getMessage().getMessageId();
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+            userName = update.getCallbackQuery().getFrom().getFirstName();
+            receivedMessage = update.getCallbackQuery().getData();
+            messageId = update.getCallbackQuery().getMessage().getMessageId();
 
-            processCallbackQuery(callbackData, chatIdBackQuery, messageId);
+            processCallbackQuery(receivedMessage, userName, chatId, messageId);
         }
     }
 
@@ -76,7 +82,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         Log.Info(username, messageText);
     }
 
-    private void processCallbackQuery(String callbackData, long chatIdBackQuery, long messageId) {
+    private void processCallbackQuery(String callbackData, String userName, long chatIdBackQuery, long messageId) {
         switch (callbackData) {
             case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> botcommands.infoMessage(chatIdBackQuery);
             case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> botcommands.settingsMessage(chatIdBackQuery);
@@ -106,7 +112,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "\uD83C\uDFE0 НА ГОЛОВНУ" -> botcommands.home(chatIdBackQuery);
         }
 
-        Log.button(callbackData);
+        Log.button( userName, callbackData);
     }
 
     public void executeMessage(SendMessage message) {
