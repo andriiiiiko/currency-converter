@@ -27,9 +27,7 @@ public class BotCommands {
         sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
         UserServices.createUserSettings(chatId);
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.start(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -38,9 +36,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Ви повернулись на головне меню");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.start(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -49,9 +45,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText(UserServices.toNumberFormat(chatId));
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{"⚙ Налаштування"});
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.info(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -60,12 +54,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Налаштування");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{
-                        "\uD83C\uDFE6 Банк", "\uD83D\uDCB5 Валюта", "\uD83D\uDD52 Час сповіщень",
-                        "\uD83D\uDD22 Кількість знаків після коми", "\uD83C\uDFE0 На головну"
-                });
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.setting(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -74,14 +63,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Виберіть кількість знаків після коми");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{
-                        getUserSettingsById(chatId).getNumber().equals("2") ? "✅ 2" : "2",
-                        getUserSettingsById(chatId).getNumber().equals("3") ? "✅ 3" : "3",
-                        getUserSettingsById(chatId).getNumber().equals("4") ? "✅ 4" : "4",
-                        "\uD83D\uDD19 Назад"
-                });
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.number(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -90,13 +72,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Виберіть валюту");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{
-                        getUserSettingsById(chatId).getCurrency().equals("USD") ? "✅ USD" : "USD",
-                        getUserSettingsById(chatId).getCurrency().equals("EUR") ? "✅ EUR" : "EUR",
-                        "\uD83D\uDD19 Назад"
-                });
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.currency(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -105,14 +81,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Виберіть банк");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{
-                        getUserSettingsById(chatId).getBank().equals("НБУ") ? "✅ НБУ" : "НБУ",
-                        getUserSettingsById(chatId).getBank().equals("Приват") ? "✅ Приват" : "Приват",
-                        getUserSettingsById(chatId).getBank().equals("Моно") ? "✅ Моно" : "Моно",
-                        "\uD83D\uDD19 Назад"
-                });
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.bank(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
@@ -121,23 +90,7 @@ public class BotCommands {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Виберіть час сповіщення");
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkupBuilder.buildMarkup(
-                new String[]{
-                        getUserSettingsById(chatId).getTime().equals("09:00") ? "✅ 09:00" : "09:00",
-                        getUserSettingsById(chatId).getTime().equals("10:00") ? "✅ 10:00" : "10:00",
-                        getUserSettingsById(chatId).getTime().equals("11:00") ? "✅ 11:00" : "11:00",
-                        getUserSettingsById(chatId).getTime().equals("12:00") ? "✅ 12:00" : "12:00",
-                        getUserSettingsById(chatId).getTime().equals("13:00") ? "✅ 13:00" : "13:00",
-                        getUserSettingsById(chatId).getTime().equals("14:00") ? "✅ 14:00" : "14:00",
-                        getUserSettingsById(chatId).getTime().equals("15:00") ? "✅ 15:00" : "15:00",
-                        getUserSettingsById(chatId).getTime().equals("16:00") ? "✅ 16:00" : "16:00",
-                        getUserSettingsById(chatId).getTime().equals("17:00") ? "✅ 17:00" : "17:00",
-                        getUserSettingsById(chatId).getTime().equals("18:00") ? "✅ 18:00" : "18:00",
-                        getUserSettingsById(chatId).getTime().equals("Вимкнути сповіщення") ?
-                                "✅ Вимкнути сповіщення" : "Вимкнути сповіщення",
-                        "\uD83D\uDD19 Назад"
-                });
-        sendMessage.setReplyMarkup(markup);
+        sendMessage.setReplyMarkup(Buttons.time(chatId));
 
         telegramBot.executeMessage(sendMessage);
     }
