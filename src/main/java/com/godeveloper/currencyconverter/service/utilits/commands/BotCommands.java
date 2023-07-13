@@ -1,6 +1,8 @@
 package com.godeveloper.currencyconverter.service.utilits.commands;
 
 import com.godeveloper.currencyconverter.service.TelegramBot;
+import com.godeveloper.currencyconverter.service.utilits.Buttons;
+import com.godeveloper.currencyconverter.service.utilits.EditMessage;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.ui.UserServices;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,10 +14,12 @@ public class BotCommands {
 
     private final SendMessage sendMessage;
     private final TelegramBot telegramBot;
+    private final EditMessage editMessage;
 
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
+        this.editMessage = new EditMessage(telegramBot);
     }
 
     public void start(long chatId) {
@@ -82,21 +86,6 @@ public class BotCommands {
         telegramBot.executeMessage(sendMessage);
     }
 
-    public void setTwoNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("2");
-    }
-
-    public void setThreeNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("3");
-    }
-
-    public void setFourNumbers(long chatId){
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setNumber("4");
-    }
-
     public void currencySettings(long chatId) {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Виберіть валюту");
@@ -110,16 +99,6 @@ public class BotCommands {
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
-    }
-
-    public void setUSD(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setCurrency("USD");
-    }
-
-    public void setEUR(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setCurrency("EUR");
     }
 
     public void bankSettings(long chatId) {
@@ -136,21 +115,6 @@ public class BotCommands {
         sendMessage.setReplyMarkup(markup);
 
         telegramBot.executeMessage(sendMessage);
-    }
-
-    public void setMono(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("Моно");
-    }
-
-    public void setPrivat(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("Приват");
-    }
-
-    public void setNBU(long chatId) {
-        sendMessage.setChatId(chatId);
-        getUserSettingsById(chatId).setBank("НБУ");
     }
 
     public void timeSettings(long chatId) {
@@ -178,58 +142,121 @@ public class BotCommands {
         telegramBot.executeMessage(sendMessage);
     }
 
-    public void setTime9(long chatId){
+    public void setTwoNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("2");
+    }
+
+    public void setThreeNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("3");
+    }
+
+    public void setFourNumbers(long chatId){
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setNumber("4");
+    }
+
+    public void setUSD(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setCurrency("USD");
+    }
+
+    public void setEUR(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setCurrency("EUR");
+    }
+
+    public void setMono(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Моно");
+    }
+
+    public void setPrivat(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("Приват");
+    }
+
+    public void setNBU(long chatId) {
+        sendMessage.setChatId(chatId);
+        getUserSettingsById(chatId).setBank("НБУ");
+    }
+
+    public void setTime9(long chatId,long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("09:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime10(long chatId){
+    public void setTime10(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("10:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime11(long chatId){
+    public void setTime11(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("11:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
+
     }
 
-    public void setTime12(long chatId){
+    public void setTime12(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("12:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime13(long chatId){
+    public void setTime13(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("13:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime14(long chatId){
+    public void setTime14(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("14:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime15(long chatId){
+    public void setTime15(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("15:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime16(long chatId){
+    public void setTime16(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("16:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime17(long chatId){
+    public void setTime17(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("17:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTime18(long chatId){
+    public void setTime18(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("18:00");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 
-    public void setTimeOff(long chatId){
+    public void setTimeOff(long chatId, long messageId){
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("Вимкнути сповіщення");
+
+        editMessage.executeEditMessageText("Виберіть час сповіщення", chatId, messageId, Buttons.time(chatId));
     }
 }

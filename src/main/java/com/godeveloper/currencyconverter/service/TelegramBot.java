@@ -56,8 +56,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
+            long messageId = update.getCallbackQuery().getMessage().getMessageId();
 
-            processCallbackQuery(callbackData, chatIdBackQuery);
+            processCallbackQuery(callbackData, chatIdBackQuery, messageId);
         }
     }
 
@@ -75,7 +76,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         Log.Info(username, messageText);
     }
 
-    private void processCallbackQuery(String callbackData, long chatIdBackQuery) {
+    private void processCallbackQuery(String callbackData, long chatIdBackQuery, long messageId) {
         switch (callbackData) {
             case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> botcommands.infoMessage(chatIdBackQuery);
             case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> botcommands.settingsMessage(chatIdBackQuery);
@@ -91,17 +92,17 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "2" -> botcommands.setTwoNumbers(chatIdBackQuery);
             case "3" -> botcommands.setThreeNumbers(chatIdBackQuery);
             case "4" -> botcommands.setFourNumbers(chatIdBackQuery);
-            case "09:00" -> botcommands.setTime9(chatIdBackQuery);
-            case "10:00" -> botcommands.setTime10(chatIdBackQuery);
-            case "11:00" -> botcommands.setTime11(chatIdBackQuery);
-            case "12:00" -> botcommands.setTime12(chatIdBackQuery);
-            case "13:00" -> botcommands.setTime13(chatIdBackQuery);
-            case "14:00" -> botcommands.setTime14(chatIdBackQuery);
-            case "15:00" -> botcommands.setTime15(chatIdBackQuery);
-            case "16:00" -> botcommands.setTime16(chatIdBackQuery);
-            case "17:00" -> botcommands.setTime17(chatIdBackQuery);
-            case "18:00" -> botcommands.setTime18(chatIdBackQuery);
-            case "ВИМКНУТИ СПОВІЩЕННЯ" -> botcommands.setTimeOff(chatIdBackQuery);
+            case "09:00" -> botcommands.setTime9(chatIdBackQuery, messageId);
+            case "10:00" -> botcommands.setTime10(chatIdBackQuery, messageId);
+            case "11:00" -> botcommands.setTime11(chatIdBackQuery, messageId);
+            case "12:00" -> botcommands.setTime12(chatIdBackQuery, messageId);
+            case "13:00" -> botcommands.setTime13(chatIdBackQuery, messageId);
+            case "14:00" -> botcommands.setTime14(chatIdBackQuery, messageId);
+            case "15:00" -> botcommands.setTime15(chatIdBackQuery, messageId);
+            case "16:00" -> botcommands.setTime16(chatIdBackQuery, messageId);
+            case "17:00" -> botcommands.setTime17(chatIdBackQuery, messageId);
+            case "18:00" -> botcommands.setTime18(chatIdBackQuery, messageId);
+            case "ВИМКНУТИ СПОВІЩЕННЯ" -> botcommands.setTimeOff(chatIdBackQuery, messageId);
             case "\uD83C\uDFE0 НА ГОЛОВНУ" -> botcommands.home(chatIdBackQuery);
         }
 
