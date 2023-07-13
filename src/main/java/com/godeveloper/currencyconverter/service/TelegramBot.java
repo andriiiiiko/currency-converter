@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
@@ -56,7 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             long chatIdBackQuery = update.getCallbackQuery().getMessage().getChatId();
-            long messageIdBackQuery =  update.getCallbackQuery().getMessage().getMessageId();
+            int messageIdBackQuery =  update.getCallbackQuery().getMessage().getMessageId();
 
             processCallbackQuery(callbackData, chatIdBackQuery, messageIdBackQuery);
         }
@@ -76,7 +77,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         Log.Info(username, messageText);
     }
 
-    private void processCallbackQuery(String callbackData, long chatIdBackQuery, long messageIdBackQuery) {
+    private void processCallbackQuery(String callbackData, long chatIdBackQuery, int messageIdBackQuery) {
         switch (callbackData) {
             case "\uD83D\uDCB1 ОТРИМАТИ ІНФО" -> botcommands.infoMessage(chatIdBackQuery);
             case "⚙ НАЛАШТУВАННЯ", "\uD83D\uDD19 НАЗАД" -> botcommands.settingsMessage(chatIdBackQuery);
@@ -109,7 +110,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         Log.button(callbackData);
     }
 
-    public void executeMessage(SendMessage message) {
+    public void executeSendMessage(SendMessage message) {
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            Log.Error(e);
+        }
+    }
+
+    public void executeDeleteMessage(DeleteMessage message) {
         try {
             execute(message);
         } catch (TelegramApiException e) {

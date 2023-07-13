@@ -4,6 +4,7 @@ import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
 import com.godeveloper.currencyconverter.service.utilits.ui.UserServices;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import static com.godeveloper.currencyconverter.service.utilits.ui.UserServices.getUserSettingsById;
@@ -11,11 +12,13 @@ import static com.godeveloper.currencyconverter.service.utilits.ui.UserServices.
 public class BotCommands {
 
     private final SendMessage sendMessage;
+    private final DeleteMessage deleteMessage;
     private final TelegramBot telegramBot;
 
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
+        this.deleteMessage = new DeleteMessage();
     }
 
     public void start(long chatId) {
@@ -27,7 +30,7 @@ public class BotCommands {
                 new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
     public void home(long chatId) {
@@ -38,7 +41,7 @@ public class BotCommands {
                 new String[]{"\uD83D\uDCB1 Отримати інфо", "⚙ Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
     public void infoMessage(long chatId) {
@@ -49,7 +52,7 @@ public class BotCommands {
                 new String[]{"⚙ Налаштування"});
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
     public void settingsMessage(long chatId) {
@@ -63,7 +66,7 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
     public void numberSettings(long chatId) {
@@ -79,24 +82,27 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
-    public void setTwoNumbers(long chatId, long messageId) {
+    public void setTwoNumbers(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setNumber("2");
+        deleteMessage(chatId, messageId);
         numberSettings(chatId);
     }
 
-    public void setThreeNumbers(long chatId, long messageId) {
+    public void setThreeNumbers(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setNumber("3");
+        deleteMessage(chatId, messageId);
         numberSettings(chatId);
     }
 
-    public void setFourNumbers(long chatId, long messageId) {
+    public void setFourNumbers(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setNumber("4");
+        deleteMessage(chatId, messageId);
         numberSettings(chatId);
     }
 
@@ -112,18 +118,20 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
-    public void setUSD(long chatId, long messageId) {
+    public void setUSD(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setCurrency("USD");
+        deleteMessage(chatId, messageId);
         currencySettings(chatId);
     }
 
-    public void setEUR(long chatId, long messageId) {
+    public void setEUR(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setCurrency("EUR");
+        deleteMessage(chatId, messageId);
         currencySettings(chatId);
     }
 
@@ -140,24 +148,27 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
-    public void setMono(long chatId, long messageId) {
+    public void setMono(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setBank("Моно");
+        deleteMessage(chatId, messageId);
         bankSettings(chatId);
     }
 
-    public void setPrivat(long chatId, long messageId) {
+    public void setPrivat(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setBank("Приват");
+        deleteMessage(chatId, messageId);
         bankSettings(chatId);
     }
 
-    public void setNBU(long chatId, long messageId) {
+    public void setNBU(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setBank("НБУ");
+        deleteMessage(chatId, messageId);
         bankSettings(chatId);
     }
 
@@ -183,72 +194,90 @@ public class BotCommands {
                 });
         sendMessage.setReplyMarkup(markup);
 
-        telegramBot.executeMessage(sendMessage);
+        telegramBot.executeSendMessage(sendMessage);
     }
 
-    public void setTime9(long chatId, long messageId) {
+    public void setTime9(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("09:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime10(long chatId, long messageId) {
+    public void setTime10(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("10:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime11(long chatId, long messageId) {
+    public void setTime11(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("11:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime12(long chatId, long messageId) {
+    public void setTime12(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("12:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime13(long chatId, long messageId) {
+    public void setTime13(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("13:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime14(long chatId, long messageId) {
+    public void setTime14(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("14:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime15(long chatId, long messageId) {
+    public void setTime15(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("15:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime16(long chatId, long messageId) {
+    public void setTime16(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("16:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime17(long chatId, long messageId) {
+    public void setTime17(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("17:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTime18(long chatId, long messageId) {
+    public void setTime18(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("18:00");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
     }
 
-    public void setTimeOff(long chatId, long messageId) {
+    public void setTimeOff(long chatId, int messageId) {
         sendMessage.setChatId(chatId);
         getUserSettingsById(chatId).setTime("Вимкнути сповіщення");
+        deleteMessage(chatId, messageId);
         timeSettings(chatId);
+    }
+
+    public void deleteMessage(long chatId, int messageId){
+        deleteMessage.setChatId(chatId);
+        deleteMessage.setMessageId(messageId);
+
+        telegramBot.executeDeleteMessage(deleteMessage);
     }
 }
