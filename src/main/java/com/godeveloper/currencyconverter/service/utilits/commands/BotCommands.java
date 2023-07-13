@@ -4,6 +4,7 @@ import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.Buttons;
 import com.godeveloper.currencyconverter.service.utilits.EditMessage;
 import com.godeveloper.currencyconverter.service.utilits.InlineKeyboardMarkupBuilder;
+import com.godeveloper.currencyconverter.service.utilits.SendMessageBuilder;
 import com.godeveloper.currencyconverter.service.utilits.ui.UserServices;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -16,10 +17,13 @@ public class BotCommands {
     private final TelegramBot telegramBot;
     private final EditMessage editMessage;
 
+    private final SendMessageBuilder sendMessageBuilder;
+
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
         this.editMessage = new EditMessage(telegramBot);
+        this.sendMessageBuilder = new SendMessageBuilder(telegramBot);
     }
 
     public void start(long chatId) {

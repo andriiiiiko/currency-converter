@@ -19,13 +19,12 @@ public class EditMessage {
         message.setText(text);
         message.setMessageId((int) messageId);
 
-        InlineKeyboardMarkup markup = button;
-        message.setReplyMarkup(markup);
+        message.setReplyMarkup(button);
 
         try {
             telegramBot.execute(message);
         } catch (TelegramApiException e) {
-            System.out.println(e);
+            Log.Error(e);
         }
     }
 
