@@ -25,19 +25,19 @@ public class BotCommands {
     public void start(long chatId) {
         UserServices.createUserSettings(chatId);
 
-        messageBuilder.sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!", Buttons.start(chatId));
+        messageBuilder.sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!", Buttons.start());
     }
 
     public void home(long chatId) {
-        messageBuilder.sendMessage(chatId, "Ви повернулись на головне меню", Buttons.start(chatId));
+        messageBuilder.sendMessage(chatId, "Ви повернулись на головне меню", Buttons.start());
     }
 
     public void infoMessage(long chatId) {
-        messageBuilder.sendMessage(chatId, UserServices.toNumberFormat(chatId), Buttons.info(chatId));
+        messageBuilder.sendMessage(chatId, UserServices.toNumberFormat(chatId), Buttons.info());
     }
 
     public void settingsMessage(long chatId) {
-        messageBuilder.sendMessage(chatId, "Налаштування", Buttons.setting(chatId));
+        messageBuilder.sendMessage(chatId, "Налаштування", Buttons.setting());
     }
 
     public void numberSettings(long chatId) {
