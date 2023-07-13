@@ -3,6 +3,7 @@ package com.godeveloper.currencyconverter.service.utilits.commands;
 import com.godeveloper.currencyconverter.service.TelegramBot;
 import com.godeveloper.currencyconverter.service.utilits.Buttons;
 import com.godeveloper.currencyconverter.service.utilits.EditMessage;
+import com.godeveloper.currencyconverter.service.utilits.MessageBuilder;
 import com.godeveloper.currencyconverter.service.utilits.ui.UserServices;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -14,83 +15,47 @@ public class BotCommands {
     private final TelegramBot telegramBot;
     private final EditMessage editMessage;
 
+    private final MessageBuilder messageBuilder;
+
     public BotCommands(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
         this.sendMessage = new SendMessage();
         this.editMessage = new EditMessage(telegramBot);
+        this.messageBuilder = new MessageBuilder(telegramBot);
     }
 
     public void start(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!");
         UserServices.createUserSettings(chatId);
 
-        sendMessage.setReplyMarkup(Buttons.start(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Ласкаво просимо. Цей бот допоможе відслідковувати актуальні курси валют!", Buttons.start(chatId));
     }
 
     public void home(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Ви повернулись на головне меню");
-
-        sendMessage.setReplyMarkup(Buttons.start(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Ви повернулись на головне меню", Buttons.start(chatId));
     }
 
     public void infoMessage(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(UserServices.toNumberFormat(chatId));
-
-        sendMessage.setReplyMarkup(Buttons.info(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, UserServices.toNumberFormat(chatId), Buttons.info(chatId));
     }
 
     public void settingsMessage(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Налаштування");
-
-        sendMessage.setReplyMarkup(Buttons.setting(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Налаштування", Buttons.setting(chatId));
     }
 
     public void numberSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть кількість знаків після коми");
-
-        sendMessage.setReplyMarkup(Buttons.number(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Виберіть кількість знаків після коми", Buttons.number(chatId));
     }
 
     public void currencySettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть валюту");
-
-        sendMessage.setReplyMarkup(Buttons.currency(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Виберіть валюту", Buttons.currency(chatId));
     }
 
     public void bankSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть банк");
-
-        sendMessage.setReplyMarkup(Buttons.bank(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Виберіть банк", Buttons.bank(chatId));
     }
 
     public void timeSettings(long chatId) {
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Виберіть час сповіщення");
-
-        sendMessage.setReplyMarkup(Buttons.time(chatId));
-
-        telegramBot.executeMessage(sendMessage);
+        messageBuilder.sendMessage(chatId, "Виберіть час сповіщення", Buttons.time(chatId));
     }
 
     public void setTwoNumbers(long chatId, long messageId){
