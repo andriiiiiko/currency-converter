@@ -19,6 +19,7 @@ public class InlineKeyboardMarkupBuilder {
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         markup.setKeyboard(keyboard);
+
         return markup;
     }
 }
